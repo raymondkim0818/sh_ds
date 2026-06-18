@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">남산원 리뉴얼 히어로 일러스트</title>
+  <desc id="desc">서울 언덕길의 따뜻한 공동체 집과 정원을 표현한 반응형 웹사이트용 배경 이미지</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#d9edf1"/>
+      <stop offset=".48" stop-color="#f7dfb7"/>
+      <stop offset="1" stop-color="#f4a47b"/>
+    </linearGradient>
+    <linearGradient id="hill" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#276e62"/>
+      <stop offset="1" stop-color="#6ea476"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#17352e" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1310" cy="145" r="72" fill="#f7cf72" opacity=".92"/>
+  <path d="M0 594 C240 502 375 531 576 458 C822 368 1023 434 1210 351 C1394 270 1510 309 1600 282 L1600 900 L0 900 Z" fill="#7fb58a" opacity=".55"/>
+  <path d="M0 669 C220 568 401 600 619 534 C894 451 1110 500 1305 432 C1438 386 1530 404 1600 378 L1600 900 L0 900 Z" fill="url(#hill)"/>
+  <path d="M0 742 C193 685 340 699 520 655 C796 588 1010 612 1255 559 C1409 525 1512 533 1600 507 L1600 900 L0 900 Z" fill="#194d43"/>
+  <g opacity=".34" fill="none" stroke="#f7f0db" stroke-width="3">
+    <path d="M982 144 l45 45 l-45 45 l-45 -45 Z"/>
+    <path d="M1115 227 l28 28 l-28 28 l-28 -28 Z"/>
+    <path d="M1276 294 l36 36 l-36 36 l-36 -36 Z"/>
+  </g>
+  <g transform="translate(760 260)" filter="url(#softShadow)">
+    <path d="M40 286 L252 112 L468 286 Z" fill="#d86f56"/>
+    <path d="M96 278 L96 536 L416 536 L416 278 Z" fill="#fff7e8"/>
+    <path d="M132 316 h92 v80 h-92 Z" fill="#85bed0"/>
+    <path d="M288 316 h92 v80 h-92 Z" fill="#85bed0"/>
+    <path d="M226 536 V390 c0 -52 66 -52 66 0 v146 Z" fill="#1f7a63"/>
+    <path d="M72 536 h370 v44 H72 Z" fill="#d9b37b"/>
+    <path d="M118 252 h284 l66 54 H54 Z" fill="#f2c94c"/>
+  </g>
+  <g transform="translate(1015 566)">
+    <rect x="0" y="0" width="190" height="110" rx="10" fill="#ffffff" opacity=".88"/>
+    <rect x="24" y="28" width="142" height="10" rx="5" fill="#256b9b" opacity=".75"/>
+    <rect x="24" y="54" width="108" height="10" rx="5" fill="#1f7a63" opacity=".75"/>
+    <rect x="24" y="80" width="132" height="10" rx="5" fill="#d86f56" opacity=".75"/>
+  </g>
+  <g transform="translate(1260 572)">
+    <path d="M0 98 C44 26 93 0 148 62 C194 112 256 72 286 22" fill="none" stroke="#fff7e8" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="30" cy="86" r="18" fill="#f2c94c"/>
+    <circle cx="139" cy="57" r="22" fill="#d86f56"/>
+    <circle cx="256" cy="34" r="17" fill="#85bed0"/>
+  </g>
+  <g transform="translate(590 608)">
+    <rect x="0" y="58" width="118" height="76" rx="8" fill="#fff7e8"/>
+    <rect x="22" y="20" width="74" height="104" rx="8" fill="#256b9b"/>
+    <rect x="48" y="0" width="22" height="120" rx="11" fill="#f2c94c"/>
+  </g>
+  <g fill="#f7f0db" opacity=".84">
+    <circle cx="1385" cy="682" r="10"/>
+    <circle cx="1423" cy="700" r="8"/>
+    <circle cx="1462" cy="674" r="11"/>
+    <circle cx="1510" cy="705" r="7"/>
+  </g>
+</svg>
