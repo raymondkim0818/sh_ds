@@ -7,6 +7,52 @@
 
   if (!nav) return;
 
+  function markCurrentNav() {
+    var currentSection = document.body.dataset.currentSection;
+    var currentPage = document.body.dataset.currentPage;
+    var currentPath = decodeURIComponent(window.location.pathname.split('/').pop() || '');
+
+    nav.querySelectorAll('.navItem').forEach(function (item) {
+      var trigger = item.querySelector('.navTrigger');
+      var links = Array.prototype.slice.call(item.querySelectorAll('.subMenu a'));
+      var isCurrent = false;
+
+      links.forEach(function (link) {
+        var href = link.getAttribute('href') || '';
+        var linkPage = href.replace(/^\.\//, '');
+        var itemSection = item.dataset.section;
+        if (linkPage === currentPage || linkPage === currentPath || itemSection === currentSection) {
+          isCurrent = true;
+        }
+      });
+
+      item.classList.toggle('isCurrent', isCurrent);
+      if (trigger) {
+        if (isCurrent) {
+          trigger.setAttribute('aria-current', 'page');
+        } else {
+          trigger.removeAttribute('aria-current');
+        }
+      }
+    });
+  }
+
+  var sectionMap = {
+    '남산원소개': 'about',
+    '사업소개': 'business',
+    '후원/자원봉사': 'support',
+    '아동생활': 'children',
+    '커뮤니티': 'community'
+  };
+
+  nav.querySelectorAll('.navItem').forEach(function (item) {
+    var trigger = item.querySelector('.navTrigger');
+    if (!trigger) return;
+    item.dataset.section = sectionMap[trigger.textContent.trim()] || '';
+  });
+
+  markCurrentNav();
+
   function closeSubMenus(exceptItem) {
     nav.querySelectorAll('.navItem.isOpen').forEach(function (item) {
       if (item === exceptItem) return;
