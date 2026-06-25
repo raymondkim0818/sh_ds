@@ -147,11 +147,68 @@
     </div>
   </nav>
 
-  <main class="subPage" id="main">
-    <h2>공지사항</h2>
-    <p>공지사항 페이지입니다. 세부 콘텐츠는 운영 자료에 맞춰 확장할 수 있습니다.</p>
-    <a class="subPageLink" href="./namsanwon.html">메인으로 돌아가기</a>
+  <main class="subPage noticeBoardPage" id="main">
+    <div class="noticeBoardTop">
+      <h2>공지사항</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>커뮤니티</span>
+        <strong>공지사항</strong>
+      </nav>
+    </div>
+
+    <section class="noticeBoardToolbar" aria-label="공지사항 검색 및 분류">
+      <div class="noticeBoardFilters" role="group" aria-label="게시물 분류">
+        <button type="button" data-notice-filter="notice" aria-pressed="false">공지사항</button>
+        <button type="button" data-notice-filter="budget" aria-pressed="false">예산</button>
+        <button type="button" data-notice-filter="settlement" aria-pressed="false">결산</button>
+        <button type="button" data-notice-filter="corporation" aria-pressed="false">법인</button>
+      </div>
+
+      <form class="noticeBoardSearch" data-notice-search>
+        <label class="blind" for="noticeSearchType">검색 분류</label>
+        <select id="noticeSearchType" name="type">
+          <option value="all">전체</option>
+          <option value="notice">공지사항</option>
+          <option value="budget">예산</option>
+          <option value="settlement">결산</option>
+          <option value="corporation">법인</option>
+        </select>
+        <label class="blind" for="noticeSearchKeyword">검색어</label>
+        <input id="noticeSearchKeyword" name="keyword" type="search" placeholder="검색어를 입력하세요">
+        <button type="submit"><span class="blind">검색</span></button>
+      </form>
+    </section>
+
+    <section class="noticeBoard" aria-label="공지사항 목록">
+      <div class="noticeBoardList" data-notice-board-list></div>
+      <p class="noticeBoardEmpty" data-notice-empty hidden>검색 결과가 없습니다.</p>
+      <nav class="noticeBoardPagination" aria-label="공지사항 페이지" data-notice-pagination></nav>
+      <div class="noticePullHint" data-notice-pull-hint hidden aria-hidden="true">
+        <span></span>
+        <span></span>
+      </div>
+      <div class="noticeMobileLoader" data-notice-mobile-loader hidden>
+        <span></span>
+        <span class="blind">게시물 불러오는 중</span>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer" id="footer">
+    <div class="footerInner">
+      <a class="footerLogo" href="./namsanwon.html" aria-label="남산원 홈">
+        <span class="logoSymbol" aria-hidden="true">남</span>
+        <span class="logoText">남산원</span>
+      </a>
+      <div class="footerInfo">
+        <p><b>주소:</b> (우)04628 서울시 중구 소파로 2길 31</p>
+        <p><b>전화:</b> 02-752-9836 <b>팩스:</b> 02-755-9836 <b>원장:</b> 박흥식</p>
+        <p>Copyright © 사회복지법인 남산원 All Rights Reserved.</p>
+      </div>
+      <a class="footerFacebookLink" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="페이스북 바로가기"></a>
+    </div>
+  </footer>
 
   <script src="../js/namsanwon.js"></script>
 </body>

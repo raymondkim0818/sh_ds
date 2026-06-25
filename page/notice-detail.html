@@ -147,11 +147,75 @@
     </div>
   </nav>
 
-  <main class="subPage" id="main">
-    <h2>게시판 상세</h2>
-    <p>게시판 상세 페이지입니다. 세부 콘텐츠는 운영 자료에 맞춰 확장할 수 있습니다.</p>
-    <a class="subPageLink" href="./namsanwon.html">메인으로 돌아가기</a>
+  <main class="subPage postDetailPage" id="main">
+    <div class="postDetailTop">
+      <h2>공지사항</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>커뮤니티</span>
+        <strong>공지사항</strong>
+      </nav>
+    </div>
+
+    <article class="postDetail">
+      <header class="postDetailHeader">
+        <h3>개인정보로 인하여 아동의 사진, 영상은 모자이크 또는 게시되지 않습니다.</h3>
+        <ul class="postDetailMeta" aria-label="게시물 정보">
+          <li class="isDate"><time datetime="2023-12-15">2023.12.15</time></li>
+          <li class="isAuthor">Administrator</li>
+          <li class="isViews">856 views</li>
+        </ul>
+      </header>
+
+      <div class="postDetailBody">
+
+        <p>남산원 홈페이지 게시물 운영 기준에 따라 아동의 개인정보와 초상권 보호를 위해 사진 및 영상 자료는 모자이크 처리 후 게시됩니다.</p>
+        <p>아동의 이름, 학교, 생활공간 등 개인을 특정할 수 있는 정보는 공개되지 않으며, 보호가 필요한 자료는 게시하지 않습니다.</p>
+        <p>방문자와 후원자 여러분의 너른 양해 부탁드립니다.</p>
+
+        <ul class="postDetailFiles" aria-label="첨부파일">
+          <li>
+            <span class="postDetailFileIcon" aria-hidden="true"></span>
+            <span class="postDetailFileInfo">
+              <strong>notice_privacy_guideline.pdf</strong>
+              <small>1.4 MB</small>
+            </span>
+            <a href="#" download>Download</a>
+          </li>
+        </ul>
+      </div>
+    </article>
+
+    <nav class="postDetailPager" aria-label="이전글 다음글">
+      <a class="isPrev" href="./notice-detail.html">
+        <span>이전글</span>
+        <strong>소망교회 제30여전도회(2026.06.08)</strong>
+      </a>
+      <a class="isNext" href="./notice-detail.html">
+        <span>다음글</span>
+        <strong>쌍용C&E 백범광장 외출(2026.05.28)</strong>
+      </a>
+    </nav>
+
+    <div class="postDetailActions">
+      <a href="./notice.html">Back to List</a>
+    </div>
   </main>
+
+  <footer class="footer" id="footer">
+    <div class="footerInner">
+      <a class="footerLogo" href="./namsanwon.html" aria-label="남산원 홈">
+        <span class="logoSymbol" aria-hidden="true">남</span>
+        <span class="logoText">남산원</span>
+      </a>
+      <div class="footerInfo">
+        <p><b>주소:</b> (우)04628 서울시 중구 소파로 2길 31</p>
+        <p><b>전화:</b> 02-752-9836 <b>팩스:</b> 02-755-9836 <b>원장:</b> 박흥식</p>
+        <p>Copyright © 사회복지법인 남산원 All Rights Reserved.</p>
+      </div>
+      <a class="footerFacebookLink" href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="페이스북 바로가기"></a>
+    </div>
+  </footer>
 
   <script src="../js/namsanwon.js"></script>
 </body>
