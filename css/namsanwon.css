@@ -214,6 +214,7 @@ button {
 .quickCard:focus-visible,
 .moreButton:focus-visible,
 .galleryCard:focus-visible,
+.galleryBoardCard:focus-visible,
 .footerFacebookLink:focus-visible,
 .sitemapButton:focus-visible,
 .menuButton:focus-visible {
@@ -1085,6 +1086,10 @@ button {
   padding: 28px 0 20px;
 }
 
+.freeBoardToolbar {
+  justify-content: flex-end;
+}
+
 .noticeBoardFilters {
   display: flex;
   align-items: center;
@@ -1296,7 +1301,8 @@ button {
   font-weight: 600;
 }
 
-.noticeBoardTitle span {
+.noticeBoardTitle > span:first-of-type {
+  flex: 0 1 auto;
   min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1309,11 +1315,199 @@ button {
   outline: none;
 }
 
-.noticeBoardImageIcon {
-  width: 15px;
-  height: 15px;
+.noticeBoardStatusIcons {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   flex: 0 0 auto;
-  background: url("../images/namsanwon/icon-notice-image.svg") center / contain no-repeat;
+}
+
+.noticeBoardStatusIcon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.noticeBoardStatusIcon.isNew {
+  background-image: url("../images/namsanwon/icon_new.svg");
+}
+
+.noticeBoardStatusIcon.isLocked {
+  background-image: url("../images/namsanwon/icon_lock.svg");
+}
+
+.noticeBoardStatusIcon.hasFile {
+  background-image: url("../images/namsanwon/icon-disk.svg");
+}
+
+.noticeBoardStatusIcon.hasImage {
+  background-image: url("../images/namsanwon/icon-notice-image.svg");
+  background-size: 15px 15px;
+}
+
+.freeBoardList {
+  box-shadow: 0 4px 20px rgba(136, 176, 75, 0.08);
+}
+
+.freeBoardRow,
+.freeBoardHead {
+  grid-template-columns: 80px minmax(0, 1fr) 100px 128px 100px 91px;
+}
+
+.freeBoardRow {
+  min-height: 58px;
+}
+
+.freeBoardRow .noticeBoardTitle {
+  gap: 4px;
+  padding: 0 16px;
+}
+
+.freeBoardAuthor,
+.freeBoardRow time,
+.freeBoardRow .noticeBoardViews {
+  color: var(--text-nav);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: var(--tracking-tight);
+}
+
+.freeBoardStatus {
+  display: inline-flex;
+  min-width: 0;
+  height: 28px;
+  align-items: center;
+  justify-content: center;
+  justify-self: center;
+  padding: 0 12px;
+  border-radius: 4px;
+  background: var(--text-sub);
+  color: var(--text-inverse);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.freeBoardStatus.isAnswered {
+  background: var(--primary);
+}
+
+body.isSecretPostModalOpen {
+  overflow: hidden;
+}
+
+.secretPostModal {
+  position: fixed;
+  z-index: 1200;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.secretPostModal[hidden] {
+  display: none;
+}
+
+.secretPostModalBackdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(27, 28, 28, 0.42);
+}
+
+.secretPostDialog {
+  position: relative;
+  display: flex;
+  width: min(660px, calc(100vw - 48px));
+  min-height: 308px;
+  align-items: center;
+  flex-direction: column;
+  padding: 48px;
+  border-radius: 24px;
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgba(27, 28, 28, 0.16);
+}
+
+.secretPostDialogIcon {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  background: url("../images/namsanwon/icon-lockkey.svg") center / 40px 40px no-repeat;
+}
+
+.secretPostDialog p {
+  max-width: none;
+  margin: 24px 0 0;
+  color: var(--text-sub);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+  letter-spacing: var(--tracking-default);
+  text-align: center;
+}
+
+.secretPostDialog form {
+  display: flex;
+  width: 354px;
+  max-width: 100%;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.secretPostDialog input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line-muted);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: var(--font-h3);
+  font-weight: 400;
+  line-height: var(--line-h3);
+  outline: none;
+}
+
+.secretPostDialog input:focus {
+  border-color: var(--secondary);
+}
+
+.secretPostDialogActions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.secretPostDialogActions button {
+  display: inline-flex;
+  width: 80px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--secondary);
+  border-radius: var(--radius-full);
+  font-size: var(--font-h5);
+  font-weight: 700;
+  line-height: var(--line-h5);
+}
+
+.secretPostDialogActions .isConfirm {
+  background: var(--secondary);
+  color: var(--text-inverse);
+}
+
+.secretPostDialogActions .isCancel {
+  background: var(--surface);
+  color: var(--secondary);
 }
 
 .noticeBoardEmpty {
@@ -1376,7 +1570,108 @@ button {
   display: none;
 }
 
- .postDetailPage {
+.galleryBoardPage {
+  padding-top: 31px;
+}
+
+.galleryBoard {
+  padding-top: 40px;
+}
+
+.galleryBoardGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px 24px;
+}
+
+.galleryBoardCard {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(116, 121, 104, 0.2);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 8px 22px rgba(69, 104, 5, 0.04);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.galleryBoardCard:hover {
+  border-color: rgba(69, 104, 5, 0.55);
+  box-shadow: 0 12px 28px rgba(69, 104, 5, 0.1);
+  transform: translateY(-2px);
+}
+
+.galleryBoardThumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 360 / 240;
+  overflow: hidden;
+  background: rgba(136, 176, 75, 0.08);
+}
+
+.galleryBoardThumb img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.25s ease;
+}
+
+.galleryBoardCard:hover .galleryBoardThumb img {
+  transform: scale(1.035);
+}
+
+.galleryBoardInfo {
+  display: grid;
+  gap: 16px;
+  padding: 20px 20px 18px;
+}
+
+.galleryBoardInfo strong {
+  display: -webkit-box;
+  overflow: hidden;
+  min-height: 52px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: var(--tracking-default);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.galleryBoardMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: var(--text-sub);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: var(--tracking-default);
+}
+
+.galleryBoardViews {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.galleryBoardViews::before {
+  width: 13px;
+  height: 9px;
+  flex: 0 0 auto;
+  background: url("../images/namsanwon/icon-view-count.svg") center / contain no-repeat;
+  content: "";
+}
+
+.galleryBoardPagination {
+  margin-top: 36px;
+}
+
+.postDetailPage {
   padding-top: 31px;
 }
 
@@ -1466,25 +1761,33 @@ button {
 .postDetailBody {
   min-height: 360px;
   margin-top: 28px;
-  padding: 40px 32px 72px;
-  border-radius: 22px;
+  padding: 40px 24px;
+  border-radius: 24px;
   background: var(--surface);
-  color: var(--text);
-  font-size: var(--font-h3);
-  font-weight: 400;
-  line-height: 28px;
+  box-shadow: 0 4px 20px rgba(136, 176, 75, 0.08);
+  color: var(--text-sub);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
   letter-spacing: var(--tracking-default);
 }
 
 .postDetailBody p {
   max-width: none;
   margin: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
   color: inherit;
   font: inherit;
 }
 
-.postDetailBody p + p {
-  margin-top: 16px;
+.postDetailBody > p {
+  margin-right: 24px;
+  margin-left: 24px;
+}
+
+.postDetailBody p:empty::before {
+  content: "\00a0";
 }
 
 .postDetailImage {
@@ -1633,29 +1936,21 @@ button {
 .postDetailActions {
   display: flex;
   justify-content: center;
-  margin-top: 58px;
+  margin-top: 28px;
 }
 
 .postDetailActions a {
   display: inline-flex;
-  min-width: 288px;
-  height: 72px;
+  height: 40px;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  border-radius: 36px;
+  padding: 0 28px;
+  border-radius: var(--radius-full);
   background: var(--secondary);
   color: var(--text-inverse);
-  font-size: var(--font-h3);
+  font-size: var(--font-h5);
   font-weight: 700;
-  line-height: var(--line-h3);
-}
-
-.postDetailActions a::before {
-  width: 18px;
-  height: 10px;
-  background: url("../images/namsanwon/icon-list.svg") center / contain no-repeat;
-  content: "";
+  line-height: var(--line-h5);
 }
 
 @keyframes noticeLoaderSpin {
@@ -1959,13 +2254,63 @@ button {
     line-height: var(--line-h3);
   }
 
-  .noticeBoardTitle span {
+  .noticeBoardTitle > span:first-of-type {
     display: block;
     min-width: 0;
     overflow: hidden;
     text-align: left;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .noticeBoardStatusIcons {
+    gap: 3px;
+  }
+
+  .freeBoardRow {
+    min-height: 144px;
+    grid-template-rows: auto auto auto;
+  }
+
+  .freeBoardRow .noticeBoardTitle {
+    max-width: 100%;
+  }
+
+  .freeBoardRow .freeBoardAuthor {
+    grid-column: 1 / 2;
+    grid-row: 2;
+    align-self: center;
+    color: var(--text-sub);
+    font-size: var(--font-b1);
+    line-height: var(--line-b1);
+  }
+
+  .freeBoardRow .freeBoardStatus {
+    grid-column: 2 / 3;
+    grid-row: 2;
+    align-self: center;
+    justify-self: end;
+  }
+
+  .freeBoardRow time {
+    grid-column: 1 / 2;
+    grid-row: 3;
+  }
+
+  .freeBoardRow .noticeBoardViews {
+    grid-column: 2 / 3;
+    grid-row: 3;
+  }
+
+  .secretPostDialog {
+    min-height: 0;
+    padding: 40px 24px;
+  }
+
+  .secretPostDialog p {
+    margin-top: 20px;
+    font-size: var(--font-h3);
+    line-height: var(--line-h3);
   }
 
   .noticeBoardRow time {
@@ -2040,6 +2385,30 @@ button {
     animation: noticeLoaderSpin 0.8s linear infinite;
   }
 
+  .galleryBoardPage {
+    padding-top: 28px;
+  }
+
+  .galleryBoard {
+    padding-top: 28px;
+  }
+
+  .galleryBoardGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px 16px;
+  }
+
+  .galleryBoardInfo {
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .galleryBoardInfo strong {
+    min-height: 48px;
+    font-size: var(--font-h3);
+    line-height: var(--line-h3);
+  }
+
   .postDetailPage {
     padding-top: 28px;
   }
@@ -2093,6 +2462,11 @@ button {
     line-height: 24px;
   }
 
+  .postDetailBody > p {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
   .postDetailImage {
     width: min(100%, calc(100% - 36px));
   }
@@ -2138,13 +2512,13 @@ button {
   }
 
   .postDetailActions {
-    margin-top: 36px;
+    margin-top: 28px;
   }
 
   .postDetailActions a {
-    width: 100%;
+    width: auto;
     min-width: 0;
-    height: 56px;
+    height: 40px;
   }
 }
 
@@ -2291,6 +2665,26 @@ button {
     width: 36px;
     height: 36px;
     flex-basis: 36px;
+  }
+
+  .galleryBoardGrid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .galleryBoardThumb {
+    aspect-ratio: 328 / 210;
+  }
+
+  .galleryBoardInfo strong {
+    min-height: auto;
+    font-size: var(--font-h3);
+    line-height: var(--line-h3);
+  }
+
+  .galleryBoardMeta {
+    font-size: var(--font-b1);
+    line-height: var(--line-b1);
   }
 
 }

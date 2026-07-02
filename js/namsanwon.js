@@ -228,10 +228,13 @@
   var noticeMobileLoader = document.querySelector('[data-notice-mobile-loader]');
   var noticeMobileQuery = window.matchMedia('(max-width: 820px)');
 
+  var noticeBoardKind = noticeBoardList ? noticeBoardList.getAttribute('data-board-kind') || 'notice' : 'notice';
+  var isFreeBoard = noticeBoardKind === 'free';
+
   var noticeBoardItems = [
-    { type: 'notice', label: '공지', title: '속 4월 20일 남산원 홈페이지 오픈', date: '2024.01.02', views: '1,240', pinned: true },
-    { type: 'notice', label: '공지', title: '개인정보로 인하여 아동의 사진, 영상은 모자이크 또는 게시되지 않습니다.', date: '2023.12.15', views: '856', pinned: true, hasImage: true },
-    { type: 'notice', label: '공지', title: '개인정보로 인하여 아동의 사진, 영상은 모자이크 또는 게시되지 않습니다.', date: '2023.12.15', views: '856', pinned: true, hasImage: true },
+    { type: 'notice', label: '공지', title: '속 4월 20일 남산원 홈페이지 오픈', date: '2024.01.02', views: '1,240', pinned: true, isNew: true, hasFile: true },
+    { type: 'notice', label: '공지', title: '개인정보로 인하여 아동의 사진, 영상은 모자이크 또는 게시되지 않습니다.', date: '2023.12.15', views: '856', pinned: true, isNew: true, hasImage: true },
+    { type: 'notice', label: '공지', title: '개인정보로 인하여 아동의 사진, 영상은 모자이크 또는 게시되지 않습니다.', date: '2023.12.15', views: '856', pinned: true, hasFile: true, hasImage: true },
     { type: 'general', label: '', title: '2023년 하반기 외부회계감사 결과 공시', date: '2023.12.28', views: '342' },
     { type: 'general', label: '', title: '남산원 생활지도원 정규직 채용 최종 합격자 발표', date: '2023.12.24', views: '518' },
     { type: 'general', label: '', title: '제 4회 남산원 후원자의 밤 따뜻한 동행 초대장', date: '2023.12.20', views: '275' },
@@ -258,23 +261,77 @@
     { type: 'notice', label: '공지', title: '정기후원 CMS 신청 안내', date: '2023.10.10', views: '529' }
   ];
 
+  var freeBoardItems = [
+    { title: '후원 물품 문의드립니다.', author: '박준영', date: '2023.12.28', status: '답변완료', views: '1', isNew: true, hasImage: true },
+    { title: '후원 문의', author: '박준영', date: '2023.12.28', status: '접수완료', views: '7', locked: true, hasFile: true },
+    { title: '안녕하세요. 동아리 Green Lantern 입니다!', author: '박준영', date: '2023.12.28', status: '접수완료', views: '2' },
+    { title: '주말 봉사활동 문의드립니다.', author: '박준영', date: '2023.12.28', status: '접수완료', views: '30', isNew: true, locked: true, hasFile: true, hasImage: true },
+    { title: '봉사문의합니다.', author: '박준영', date: '2023.12.28', status: '접수완료', views: '10', hasFile: true },
+    { title: '후원 문의', author: '박준영', date: '2023.12.28', status: '접수완료', views: '5', locked: true },
+    { title: '봉사활동 문의', author: '박준영', date: '2023.12.28', status: '접수완료', views: '5' },
+    { title: '소득공제 관련', author: '박준영', date: '2023.12.28', status: '접수완료', views: '1,307', hasFile: true },
+    { title: '정기 후원 문의드립니다.', author: '박준영', date: '2023.12.28', status: '접수완료', views: '1,307' },
+    { title: '자원봉사 신청 일정 문의', author: '김민지', date: '2023.12.24', status: '답변완료', views: '128', hasImage: true },
+    { title: '후원확인서 발급 요청드립니다.', author: '이서준', date: '2023.12.21', status: '접수완료', views: '94', locked: true, hasFile: true },
+    { title: '방문 봉사 가능 시간 문의', author: '최유진', date: '2023.12.18', status: '답변완료', views: '76' },
+    { title: 'CMS 후원 변경 문의', author: '정현우', date: '2023.12.14', status: '답변완료', views: '153', hasFile: true },
+    { title: '아이들 물품 후원 관련 문의', author: '윤하늘', date: '2023.12.11', status: '접수완료', views: '61', hasImage: true },
+    { title: '봉사활동 확인서 문의', author: '한지민', date: '2023.12.08', status: '답변완료', views: '118', locked: true },
+    { title: '단체 자원봉사 신청 문의', author: '오세훈', date: '2023.12.05', status: '접수완료', views: '87' },
+    { title: '연말 후원 영수증 발급 일정', author: '강수빈', date: '2023.12.01', status: '답변완료', views: '209', hasFile: true },
+    { title: '정기후원 해지 절차 문의', author: '문지호', date: '2023.11.28', status: '답변완료', views: '164', locked: true },
+    { title: '물품 기부 가능 품목 문의', author: '송예린', date: '2023.11.24', status: '접수완료', views: '132', hasImage: true },
+    { title: '주말 방문 가능 여부 문의', author: '임도윤', date: '2023.11.20', status: '답변완료', views: '146' }
+  ];
+
+  var freeBoardAdditionalTitles = [
+    '후원 신청서 작성 문의',
+    '자원봉사 가능 일정 문의',
+    '기부금 영수증 발급 요청',
+    '단체 방문 절차 문의',
+    '물품 후원 전달 방법',
+    '정기후원 결제일 변경 문의',
+    '봉사활동 시간 인정 문의',
+    '후원자 정보 변경 요청'
+  ];
+
+  while (freeBoardItems.length < 45) {
+    var freeBoardIndex = freeBoardItems.length;
+    freeBoardItems.push({
+      title: freeBoardAdditionalTitles[freeBoardIndex % freeBoardAdditionalTitles.length],
+      author: '방문자' + (freeBoardIndex + 1),
+      date: '2023.11.' + String(19 - (freeBoardIndex % 19)).padStart(2, '0'),
+      status: freeBoardIndex % 3 === 0 ? '답변완료' : '접수완료',
+      views: String(40 + freeBoardIndex * 7),
+      locked: freeBoardIndex % 5 === 0,
+      hasFile: freeBoardIndex % 7 === 0,
+      hasImage: freeBoardIndex % 8 === 0
+    });
+  }
+
+  var activeBoardItems = isFreeBoard ? freeBoardItems : noticeBoardItems;
+
   var noticeBoardState = {
     filters: [],
     searchType: 'all',
     keyword: '',
     page: 1,
-    pageSize: 8,
-    mobileVisibleCount: 8,
+    pageSize: isFreeBoard ? 9 : 8,
+    mobileVisibleCount: isFreeBoard ? 9 : 8,
     isMobileLoading: false,
     touchStartY: 0
   };
 
   function getNoticeBoardFilteredItems() {
-    return noticeBoardItems.filter(function (item) {
+    return activeBoardItems.filter(function (item) {
       var matchesFilter = noticeBoardState.filters.length === 0 || noticeBoardState.filters.indexOf(item.type) !== -1;
-      var matchesType = noticeBoardState.searchType === 'all' || item.type === noticeBoardState.searchType;
       var keyword = noticeBoardState.keyword.trim().toLowerCase();
-      var matchesKeyword = !keyword || item.title.toLowerCase().indexOf(keyword) !== -1 || item.label.toLowerCase().indexOf(keyword) !== -1;
+      var searchableText = item.title + ' ' + (item.label || '') + ' ' + (item.author || '');
+      var matchesType = noticeBoardState.searchType === 'all'
+        || (noticeBoardState.searchType === 'title' && item.title.toLowerCase().indexOf(keyword) !== -1)
+        || (noticeBoardState.searchType === 'author' && (item.author || '').toLowerCase().indexOf(keyword) !== -1)
+        || item.type === noticeBoardState.searchType;
+      var matchesKeyword = !keyword || searchableText.toLowerCase().indexOf(keyword) !== -1;
       return matchesFilter && matchesType && matchesKeyword;
     });
   }
@@ -283,17 +340,40 @@
     return total - index;
   }
 
+  function renderBoardStatusIcons(item) {
+    return '' +
+      (item.isNew ? '<span class="noticeBoardStatusIcon isNew" aria-label="새 게시물"></span>' : '') +
+      (item.locked ? '<span class="noticeBoardStatusIcon isLocked" aria-label="비밀 게시물"></span>' : '') +
+      (item.hasFile ? '<span class="noticeBoardStatusIcon hasFile" aria-label="파일 첨부"></span>' : '') +
+      (item.hasImage ? '<span class="noticeBoardStatusIcon hasImage" aria-label="이미지 첨부"></span>' : '');
+  }
+
   function renderNoticeBoardRow(item, regularItems) {
     var regularIndex = regularItems.indexOf(item);
     var number = item.pinned ? '' : getNoticeNumber(regularItems.length, regularIndex);
     var numberContent = item.pinned ? '<span class="noticeBoardPin"><span class="blind">상단 고정</span></span>' : number;
-    var imageIcon = item.hasImage ? '<span class="noticeBoardImageIcon" aria-label="이미지 포함"></span>' : '';
     var label = item.label ? '<em class="noticeBoardCategory">' + item.label + '</em>' : '';
     return '' +
       '<article class="noticeBoardRow' + (item.pinned ? ' isPinned' : '') + '">' +
         '<span class="noticeBoardNumber">' + numberContent + '</span>' +
-        '<a class="noticeBoardTitle" href="./notice-detail.html">' + label + '<span>' + item.title + '</span>' + imageIcon + '</a>' +
+        '<a class="noticeBoardTitle" href="./notice-detail.html">' + label + '<span>' + item.title + '</span><span class="noticeBoardStatusIcons">' + renderBoardStatusIcons(item) + '</span></a>' +
         '<time datetime="' + item.date + '">' + item.date + '</time>' +
+        '<span class="noticeBoardViews">' + item.views + '</span>' +
+      '</article>';
+  }
+
+  function renderFreeBoardRow(item, regularItems) {
+    var regularIndex = regularItems.indexOf(item);
+    var number = getNoticeNumber(regularItems.length, regularIndex);
+    var statusClass = item.status === '답변완료' ? ' isAnswered' : '';
+    var secretAttributes = item.locked ? ' data-secret-post aria-haspopup="dialog"' : '';
+    return '' +
+      '<article class="noticeBoardRow freeBoardRow">' +
+        '<span class="noticeBoardNumber">' + number + '</span>' +
+        '<a class="noticeBoardTitle" href="./free-board.html?post=' + number + '"' + secretAttributes + '><span>' + item.title + '</span><span class="noticeBoardStatusIcons">' + renderBoardStatusIcons(item) + '</span></a>' +
+        '<span class="freeBoardAuthor">' + item.author + '</span>' +
+        '<time datetime="' + item.date + '">' + item.date + '</time>' +
+        '<span class="freeBoardStatus' + statusClass + '">' + item.status + '</span>' +
         '<span class="noticeBoardViews">' + item.views + '</span>' +
       '</article>';
   }
@@ -333,11 +413,13 @@
     } else {
       if (noticeBoardEmpty) noticeBoardEmpty.hidden = true;
       noticeBoardList.innerHTML = '' +
-        '<div class="noticeBoardHead" aria-hidden="true">' +
-          '<span>번호</span><span>제목</span><span>작성일</span><span>조회수</span>' +
+        '<div class="noticeBoardHead' + (isFreeBoard ? ' freeBoardHead' : '') + '" aria-hidden="true">' +
+          (isFreeBoard
+            ? '<span>번호</span><span>제목</span><span>작성자</span><span>작성일</span><span>처리현황</span><span>조회수</span>'
+            : '<span>번호</span><span>제목</span><span>작성일</span><span>조회수</span>') +
         '</div>' +
         visibleItems.map(function (item) {
-          return renderNoticeBoardRow(item, regularItems);
+          return isFreeBoard ? renderFreeBoardRow(item, regularItems) : renderNoticeBoardRow(item, regularItems);
         }).join('');
     }
 
@@ -430,6 +512,57 @@
     });
 
     renderNoticeBoard();
+  }
+
+  var secretPostModal = document.querySelector('[data-secret-post-modal]');
+  var secretPostForm = secretPostModal ? secretPostModal.querySelector('[data-secret-post-form]') : null;
+  var secretPostPassword = secretPostForm ? secretPostForm.elements.password : null;
+  var secretPostTrigger = null;
+
+  function openSecretPostModal(trigger) {
+    if (!secretPostModal) return;
+    secretPostTrigger = trigger;
+    secretPostModal.hidden = false;
+    document.body.classList.add('isSecretPostModalOpen');
+    if (secretPostPassword) {
+      secretPostPassword.value = '';
+      window.setTimeout(function () {
+        secretPostPassword.focus();
+      }, 0);
+    }
+  }
+
+  function closeSecretPostModal() {
+    if (!secretPostModal) return;
+    secretPostModal.hidden = true;
+    document.body.classList.remove('isSecretPostModalOpen');
+    if (secretPostTrigger) secretPostTrigger.focus();
+    secretPostTrigger = null;
+  }
+
+  if (noticeBoardList && secretPostModal) {
+    noticeBoardList.addEventListener('click', function (event) {
+      var secretLink = event.target.closest('[data-secret-post]');
+      if (!secretLink) return;
+      event.preventDefault();
+      openSecretPostModal(secretLink);
+    });
+
+    secretPostModal.addEventListener('click', function (event) {
+      if (event.target.closest('[data-secret-post-close]')) closeSecretPostModal();
+    });
+
+    if (secretPostForm) {
+      secretPostForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (!secretPostPassword || !secretPostPassword.value) return;
+        closeSecretPostModal();
+      });
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !secretPostModal.hidden) closeSecretPostModal();
+    });
   }
 
   var heroSlider = document.querySelector('[data-hero-slider]');

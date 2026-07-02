@@ -147,10 +147,59 @@
     </div>
   </nav>
 
-  <main class="subPage" id="main">
-    <h2>자유게시판</h2>
-    <p>자유게시판 페이지입니다. 세부 콘텐츠는 운영 자료에 맞춰 확장할 수 있습니다.</p>
-    <a class="subPageLink" href="./namsanwon.html">메인으로 돌아가기</a>
+  <main class="subPage noticeBoardPage freeBoardPage" id="main">
+    <div class="noticeBoardTop">
+      <h2>자유게시판</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>커뮤니티</span>
+        <strong>자유게시판</strong>
+      </nav>
+    </div>
+
+    <section class="noticeBoardToolbar freeBoardToolbar" aria-label="자유게시판 검색">
+      <form class="noticeBoardSearch" data-notice-search>
+        <label class="blind" for="freeBoardSearchType">검색 분류</label>
+        <select id="freeBoardSearchType" name="type">
+          <option value="all">전체</option>
+          <option value="title">제목</option>
+          <option value="author">작성자</option>
+        </select>
+        <label class="blind" for="freeBoardSearchKeyword">검색어</label>
+        <input id="freeBoardSearchKeyword" name="keyword" type="search" placeholder="검색어를 입력하세요">
+        <button type="submit"><span class="blind">검색</span></button>
+      </form>
+    </section>
+
+    <section class="noticeBoard freeBoard" aria-label="자유게시판 목록">
+      <div class="noticeBoardList freeBoardList" data-notice-board-list data-board-kind="free"></div>
+      <p class="noticeBoardEmpty" data-notice-empty hidden>검색 결과가 없습니다.</p>
+      <nav class="noticeBoardPagination" aria-label="자유게시판 페이지" data-notice-pagination></nav>
+      <div class="noticePullHint" data-notice-pull-hint hidden aria-hidden="true">
+        <span></span>
+        <span></span>
+      </div>
+      <div class="noticeMobileLoader" data-notice-mobile-loader hidden>
+        <span></span>
+        <span class="blind">게시물 불러오는 중</span>
+      </div>
+    </section>
+
+    <div class="secretPostModal" data-secret-post-modal hidden>
+      <div class="secretPostModalBackdrop" data-secret-post-close></div>
+      <section class="secretPostDialog" role="dialog" aria-modal="true" aria-labelledby="secretPostMessage">
+        <span class="secretPostDialogIcon" aria-hidden="true"></span>
+        <p id="secretPostMessage">이 글은 비밀글입니다. 비밀번호를 입력하여 주십시오.</p>
+        <form data-secret-post-form>
+          <label class="blind" for="secretPostPassword">비밀번호</label>
+          <input id="secretPostPassword" name="password" type="password" autocomplete="current-password" required>
+          <div class="secretPostDialogActions">
+            <button class="isConfirm" type="submit">확인</button>
+            <button class="isCancel" type="button" data-secret-post-close>취소</button>
+          </div>
+        </form>
+      </section>
+    </div>
   </main>
 
   <footer class="footer" id="footer">
