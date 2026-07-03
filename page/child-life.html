@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/fonts.css">
   <link rel="stylesheet" href="../css/root.css">
-  <link rel="stylesheet" href="../css/namsanwon.css">
+  <link rel="stylesheet" href="../css/namsanwon.css?v=20260703-4">
 </head>
 <body data-current-section="children" data-current-page="child-life.html">
   <a class="skipLink" href="#main">본문 바로가기</a>
@@ -144,10 +144,47 @@
     </div>
   </nav>
 
-  <main class="subPage" id="main">
-    <h2>아동생활 소식</h2>
-    <p>아동생활 소식 페이지입니다. 세부 콘텐츠는 운영 자료에 맞춰 확장할 수 있습니다.</p>
-    <a class="subPageLink" href="./namsanwon.html">메인으로 돌아가기</a>
+  <main class="subPage noticeBoardPage childLifeBoardPage" id="main">
+    <div class="noticeBoardTop">
+      <h2>아동생활 소식</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>아동생활</span>
+        <strong>아동생활 소식</strong>
+      </nav>
+    </div>
+
+    <figure class="childLifeFeaturedImage">
+      <img src="../images/namsanwon/hero-figma-01-image.png" alt="아이들이 야외에서 함께하는 모습">
+    </figure>
+
+    <section class="noticeBoardToolbar childLifeBoardToolbar" aria-label="아동생활 소식 검색">
+      <form class="noticeBoardSearch" data-notice-search>
+        <label class="blind" for="childLifeSearchType">검색 분류</label>
+        <select id="childLifeSearchType" name="type">
+          <option value="all">전체</option>
+          <option value="title">제목</option>
+          <option value="author">작성자</option>
+        </select>
+        <label class="blind" for="childLifeSearchKeyword">검색어</label>
+        <input id="childLifeSearchKeyword" name="keyword" type="search" placeholder="검색어를 입력하세요">
+        <button type="submit"><span class="blind">검색</span></button>
+      </form>
+    </section>
+
+    <section class="noticeBoard childLifeBoard" aria-label="아동생활 소식 목록">
+      <div class="noticeBoardList childLifeBoardList" data-notice-board-list data-board-kind="child"></div>
+      <p class="noticeBoardEmpty" data-notice-empty hidden>검색 결과가 없습니다.</p>
+      <nav class="noticeBoardPagination" aria-label="아동생활 소식 페이지" data-notice-pagination></nav>
+      <div class="noticePullHint" data-notice-pull-hint hidden aria-hidden="true">
+        <span></span>
+        <span></span>
+      </div>
+      <div class="noticeMobileLoader" data-notice-mobile-loader hidden>
+        <span></span>
+        <span class="blind">게시물 불러오는 중</span>
+      </div>
+    </section>
   </main>
 
   <footer class="footer" id="footer">
@@ -165,6 +202,6 @@
     </div>
   </footer>
 
-  <script src="../js/namsanwon.js"></script>
+  <script src="../js/namsanwon.js?v=20260703-4"></script>
 </body>
 </html>

@@ -230,6 +230,7 @@
 
   var noticeBoardKind = noticeBoardList ? noticeBoardList.getAttribute('data-board-kind') || 'notice' : 'notice';
   var isFreeBoard = noticeBoardKind === 'free';
+  var isChildLifeBoard = noticeBoardKind === 'child';
 
   var noticeBoardItems = [
     { type: 'notice', label: '공지', title: '속 4월 20일 남산원 홈페이지 오픈', date: '2024.01.02', views: '1,240', pinned: true, isNew: true, hasFile: true },
@@ -309,7 +310,47 @@
     });
   }
 
-  var activeBoardItems = isFreeBoard ? freeBoardItems : noticeBoardItems;
+  var childLifeBoardItems = [
+    { type: 'notice', label: '공지', title: '개인정보로 인하여 아동의 사진, 영상은 모자이크 또는 게시되지 않습니다.', author: '관리자', date: '2024.01.02', views: '1,240', pinned: true },
+    { type: 'general', label: '', title: '[7월/29회기] 건강보험공단 중구지사 후원 방송댄스 프로그램', author: '성유민', date: '2023.12.28', views: '342', isNew: true, hasImage: true },
+    { type: 'general', label: '', title: '6월 28일 모세방 소식입니다.', author: '양현주', date: '2023.12.24', views: '518' },
+    { type: 'general', label: '', title: '6월 28일 한나방 소식입니다.', author: '이세랑', date: '2023.12.24', views: '518' },
+    { type: 'general', label: '', title: '6월 28일 솔로몬방 소식입니다.', author: '홍예찬', date: '2023.12.24', views: '518' },
+    { type: 'general', label: '', title: '6월 28일 다윗방 소식입니다.', author: '오정복', date: '2023.12.20', views: '275' },
+    { type: 'general', label: '', title: '6월 26일 다윗방 05월 선행상 수상 소식입니다.', author: '장영호', date: '2023.12.18', views: '156', hasImage: true },
+    { type: 'general', label: '', title: '아이들과 함께한 주말 문화활동', author: '김민지', date: '2023.12.12', views: '482', hasFile: true }
+  ];
+
+  var childLifeAdditionalTitles = [
+    '생활관 생일잔치 소식입니다.',
+    '주말 체험학습 활동 소식입니다.',
+    '아이들과 함께한 미술 프로그램',
+    '여름철 건강관리 교육 소식',
+    '자립지원 요리 프로그램 활동',
+    '학교 방과후 활동 소식입니다.',
+    '남산 산책 프로그램을 진행했습니다.',
+    '독서 활동과 함께한 즐거운 오후'
+  ];
+
+  while (childLifeBoardItems.length < 36) {
+    var childLifeIndex = childLifeBoardItems.length;
+    childLifeBoardItems.push({
+      type: 'general',
+      label: '',
+      title: childLifeAdditionalTitles[childLifeIndex % childLifeAdditionalTitles.length],
+      author: '생활지도원',
+      date: '2023.11.' + String(28 - (childLifeIndex % 20)).padStart(2, '0'),
+      views: String(90 + childLifeIndex * 13),
+      hasImage: childLifeIndex % 5 === 0,
+      hasFile: childLifeIndex % 7 === 0
+    });
+  }
+
+  var activeBoardItems = isFreeBoard
+    ? freeBoardItems
+    : isChildLifeBoard
+      ? childLifeBoardItems
+      : noticeBoardItems;
 
   var noticeBoardState = {
     filters: [],
@@ -317,7 +358,7 @@
     keyword: '',
     page: 1,
     pageSize: isFreeBoard ? 9 : 8,
-    mobileVisibleCount: isFreeBoard ? 9 : 8,
+    mobileVisibleCount: 0,
     isMobileLoading: false,
     touchStartY: 0
   };
@@ -370,10 +411,26 @@
     return '' +
       '<article class="noticeBoardRow freeBoardRow">' +
         '<span class="noticeBoardNumber">' + number + '</span>' +
-        '<a class="noticeBoardTitle" href="./free-board.html?post=' + number + '"' + secretAttributes + '><span>' + item.title + '</span><span class="noticeBoardStatusIcons">' + renderBoardStatusIcons(item) + '</span></a>' +
+        '<a class="noticeBoardTitle" href="./free-board-detail.html?post=' + number + '"' + secretAttributes + '><span>' + item.title + '</span><span class="noticeBoardStatusIcons">' + renderBoardStatusIcons(item) + '</span></a>' +
         '<span class="freeBoardAuthor">' + item.author + '</span>' +
         '<time datetime="' + item.date + '">' + item.date + '</time>' +
         '<span class="freeBoardStatus' + statusClass + '">' + item.status + '</span>' +
+        '<span class="noticeBoardViews">' + item.views + '</span>' +
+      '</article>';
+  }
+
+  function renderChildLifeBoardRow(item, regularItems) {
+    var regularIndex = regularItems.indexOf(item);
+    var number = item.pinned ? '' : getNoticeNumber(regularItems.length, regularIndex);
+    var numberContent = item.pinned ? '<span class="noticeBoardPin"><span class="blind">상단 고정</span></span>' : number;
+    var label = item.label ? '<em class="noticeBoardCategory">' + item.label + '</em>' : '';
+    var postId = item.pinned ? 'pinned' : number;
+    return '' +
+      '<article class="noticeBoardRow childLifeBoardRow' + (item.pinned ? ' isPinned' : '') + '">' +
+        '<span class="noticeBoardNumber">' + numberContent + '</span>' +
+        '<a class="noticeBoardTitle" href="./child-life-detail.html?post=' + postId + '">' + label + '<span>' + item.title + '</span><span class="noticeBoardStatusIcons">' + renderBoardStatusIcons(item) + '</span></a>' +
+        '<span class="childLifeBoardAuthor">' + item.author + '</span>' +
+        '<time datetime="' + item.date + '">' + item.date + '</time>' +
         '<span class="noticeBoardViews">' + item.views + '</span>' +
       '</article>';
   }
@@ -397,6 +454,9 @@
     var regularItems = filteredItems.filter(function (item) { return !item.pinned; });
     var isMobile = noticeMobileQuery.matches;
     var regularPageSize = Math.max(1, noticeBoardState.pageSize - pinnedItems.length);
+    if (isMobile && noticeBoardState.mobileVisibleCount === 0) {
+      noticeBoardState.mobileVisibleCount = regularPageSize;
+    }
     var totalPages = Math.max(1, Math.ceil(regularItems.length / regularPageSize));
     if (noticeBoardState.page > totalPages) noticeBoardState.page = totalPages;
 
@@ -413,13 +473,19 @@
     } else {
       if (noticeBoardEmpty) noticeBoardEmpty.hidden = true;
       noticeBoardList.innerHTML = '' +
-        '<div class="noticeBoardHead' + (isFreeBoard ? ' freeBoardHead' : '') + '" aria-hidden="true">' +
+        '<div class="noticeBoardHead' + (isFreeBoard ? ' freeBoardHead' : isChildLifeBoard ? ' childLifeBoardHead' : '') + '" aria-hidden="true">' +
           (isFreeBoard
             ? '<span>번호</span><span>제목</span><span>작성자</span><span>작성일</span><span>처리현황</span><span>조회수</span>'
-            : '<span>번호</span><span>제목</span><span>작성일</span><span>조회수</span>') +
+            : isChildLifeBoard
+              ? '<span>번호</span><span>제목</span><span>작성자</span><span>작성일</span><span>조회수</span>'
+              : '<span>번호</span><span>제목</span><span>작성일</span><span>조회수</span>') +
         '</div>' +
         visibleItems.map(function (item) {
-          return isFreeBoard ? renderFreeBoardRow(item, regularItems) : renderNoticeBoardRow(item, regularItems);
+          return isFreeBoard
+            ? renderFreeBoardRow(item, regularItems)
+            : isChildLifeBoard
+              ? renderChildLifeBoardRow(item, regularItems)
+              : renderNoticeBoardRow(item, regularItems);
         }).join('');
     }
 
@@ -436,7 +502,7 @@
   }
 
   function resetNoticeMobileLoad() {
-    noticeBoardState.mobileVisibleCount = noticeBoardState.pageSize;
+    noticeBoardState.mobileVisibleCount = 0;
     noticeBoardState.isMobileLoading = false;
     if (noticeMobileLoader) noticeMobileLoader.hidden = true;
   }
@@ -518,10 +584,12 @@
   var secretPostForm = secretPostModal ? secretPostModal.querySelector('[data-secret-post-form]') : null;
   var secretPostPassword = secretPostForm ? secretPostForm.elements.password : null;
   var secretPostTrigger = null;
+  var secretPostDestination = '';
 
   function openSecretPostModal(trigger) {
     if (!secretPostModal) return;
     secretPostTrigger = trigger;
+    secretPostDestination = trigger.getAttribute('href') || '';
     secretPostModal.hidden = false;
     document.body.classList.add('isSecretPostModalOpen');
     if (secretPostPassword) {
@@ -538,6 +606,7 @@
     document.body.classList.remove('isSecretPostModalOpen');
     if (secretPostTrigger) secretPostTrigger.focus();
     secretPostTrigger = null;
+    secretPostDestination = '';
   }
 
   if (noticeBoardList && secretPostModal) {
@@ -556,7 +625,9 @@
       secretPostForm.addEventListener('submit', function (event) {
         event.preventDefault();
         if (!secretPostPassword || !secretPostPassword.value) return;
+        var destination = secretPostDestination;
         closeSecretPostModal();
+        if (destination) window.location.href = destination;
       });
     }
 

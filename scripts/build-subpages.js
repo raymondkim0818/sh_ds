@@ -3,6 +3,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const pageDir = path.join(root, "page");
+const assetVersion = "20260703-7";
 const mainHtml = fs.readFileSync(path.join(pageDir, "namsanwon.html"), "utf8");
 const header = mainHtml.match(/<header class="globalNav"[\s\S]*?<\/header>/)[0];
 const footer = `  <footer class="footer" id="footer">
@@ -93,6 +94,8 @@ const aliases = new Map([
   ["community.html", "notice.html"],
   ["programs.html", "admin-support.html"],
   ["notice-detail.html", "notice.html"],
+  ["free-board-detail.html", "free-board.html"],
+  ["child-life-detail.html", "child-life.html"],
   ["gallery-detail.html", "gallery.html"],
   ["qna.html", "notice.html"],
   ["budget.html", "notice.html"],
@@ -114,6 +117,8 @@ for (const [file, target] of aliases) {
       "community.html": "커뮤니티",
       "programs.html": "사업소개",
       "notice-detail.html": "게시판 상세",
+      "free-board-detail.html": "자유게시판 상세",
+      "child-life-detail.html": "아동생활 상세",
       "gallery-detail.html": "갤러리 상세",
       "qna.html": "질문과 답변",
       "budget.html": "예산게시판",
@@ -253,6 +258,51 @@ function freeBoardMainContent() {
   </main>`;
 }
 
+function childLifeMainContent() {
+  return `  <main class="subPage noticeBoardPage childLifeBoardPage" id="main">
+    <div class="noticeBoardTop">
+      <h2>아동생활 소식</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>아동생활</span>
+        <strong>아동생활 소식</strong>
+      </nav>
+    </div>
+
+    <figure class="childLifeFeaturedImage">
+      <img src="../images/namsanwon/hero-figma-01-image.png" alt="아이들이 야외에서 함께하는 모습">
+    </figure>
+
+    <section class="noticeBoardToolbar childLifeBoardToolbar" aria-label="아동생활 소식 검색">
+      <form class="noticeBoardSearch" data-notice-search>
+        <label class="blind" for="childLifeSearchType">검색 분류</label>
+        <select id="childLifeSearchType" name="type">
+          <option value="all">전체</option>
+          <option value="title">제목</option>
+          <option value="author">작성자</option>
+        </select>
+        <label class="blind" for="childLifeSearchKeyword">검색어</label>
+        <input id="childLifeSearchKeyword" name="keyword" type="search" placeholder="검색어를 입력하세요">
+        <button type="submit"><span class="blind">검색</span></button>
+      </form>
+    </section>
+
+    <section class="noticeBoard childLifeBoard" aria-label="아동생활 소식 목록">
+      <div class="noticeBoardList childLifeBoardList" data-notice-board-list data-board-kind="child"></div>
+      <p class="noticeBoardEmpty" data-notice-empty hidden>검색 결과가 없습니다.</p>
+      <nav class="noticeBoardPagination" aria-label="아동생활 소식 페이지" data-notice-pagination></nav>
+      <div class="noticePullHint" data-notice-pull-hint hidden aria-hidden="true">
+        <span></span>
+        <span></span>
+      </div>
+      <div class="noticeMobileLoader" data-notice-mobile-loader hidden>
+        <span></span>
+        <span class="blind">게시물 불러오는 중</span>
+      </div>
+    </section>
+  </main>`;
+}
+
 const galleryPosts = [
   {
     title: "신세계 까사 봉사활동(26.6.5)",
@@ -372,12 +422,25 @@ ${galleryPosts
 
 function postDetailContent(options) {
   const files = options.files || [];
-  const fileList = files.length
+  const imageFilePattern = /\.(?:avif|bmp|gif|jpe?g|png|svg|webp)$/i;
+  const imageFiles = files.filter((file) => imageFilePattern.test(file.name));
+  const downloadFiles = files.filter((file) => !imageFilePattern.test(file.name));
+  const imageContent = imageFiles.length
+    ? `
+        <div class="postDetailImages">
+${imageFiles
+  .map((file) => `          <figure class="postDetailImage">
+            <img src="${file.src}" alt="${file.alt || ""}">
+          </figure>`)
+  .join("\n")}
+        </div>`
+    : "";
+  const fileList = downloadFiles.length
     ? `
         <ul class="postDetailFiles" aria-label="첨부파일">
-${files
+${downloadFiles
   .map((file) => `          <li>
-            <span class="postDetailFileIcon" aria-hidden="true"></span>
+            <span class="postDetailFileIcon isFile" aria-hidden="true"></span>
             <span class="postDetailFileInfo">
               <strong>${file.name}</strong>
               <small>${file.size}</small>
@@ -387,15 +450,14 @@ ${files
   .join("\n")}
         </ul>`
     : "";
-  const bodyContent = options.image
-    ? `
-        <div class="postDetailImage">
-          <img src="${options.image.src}" alt="${options.image.alt}">
-        </div>`
-    : `
+  const defaultEditorHtml = `
         <p>남산원 홈페이지 게시물 운영 기준에 따라 아동의 개인정보와 초상권 보호를 위해 사진 및 영상 자료는 모자이크 처리 후 게시됩니다.</p>
         <p>아동의 이름, 학교, 생활공간 등 개인을 특정할 수 있는 정보는 공개되지 않으며, 보호가 필요한 자료는 게시하지 않습니다.</p>
         <p>방문자와 후원자 여러분의 너른 양해 부탁드립니다.</p>`;
+  const editorContent = `
+        <div class="postDetailEditor">
+${options.editorHtml || defaultEditorHtml}
+        </div>`;
 
   return `  <main class="subPage postDetailPage" id="main">
     <div class="postDetailTop">
@@ -418,7 +480,8 @@ ${files
       </header>
 
       <div class="postDetailBody">
-${bodyContent}
+${imageContent}
+${editorContent}
 ${fileList}
       </div>
     </article>
@@ -453,6 +516,8 @@ function subpageContent(page) {
     ? noticeMainContent()
     : page.activeFile === "free-board.html" && page.title === "자유게시판"
       ? freeBoardMainContent()
+    : page.activeFile === "child-life.html" && page.title === "아동생활 소식"
+      ? childLifeMainContent()
     : page.activeFile === "gallery.html" && page.title === "갤러리"
       ? galleryMainContent()
     : page.title === "게시판 상세"
@@ -468,6 +533,47 @@ function subpageContent(page) {
             { name: "notice_privacy_guideline.pdf", size: "1.4 MB" },
           ],
         })
+      : page.title === "자유게시판 상세"
+        ? postDetailContent({
+            category: "자유게시판",
+            title: "후원 문의",
+            date: "2023.12.28",
+            datetime: "2023-12-28",
+            author: "박준영",
+            views: "7 views",
+            prevHref: "./free-board-detail.html",
+            prevTitle: "후원 물품 문의드립니다.",
+            nextHref: "./free-board-detail.html",
+            nextTitle: "안녕하세요. 동아리 Green Lantern 입니다!",
+            listHref: "./free-board.html",
+            files: [
+              { name: "후원문의_첨부파일.hwp", size: "1.4 MB" },
+            ],
+          })
+      : page.title === "아동생활 상세"
+        ? postDetailContent({
+            category: "아동생활 소식",
+            title: "[7월/29회기] 건강보험공단 중구지사 후원 방송댄스 프로그램",
+            date: "2023.12.28",
+            datetime: "2023-12-28",
+            author: "성유민",
+            views: "342 views",
+            editorHtml: `          <p>건강보험공단 중구지사의 후원으로 아이들과 방송댄스 프로그램을 진행했습니다.</p>
+          <p>아이들이 음악에 맞춰 즐겁게 움직이며 활기찬 시간을 보냈습니다.</p>`,
+            prevHref: "./child-life-detail.html",
+            prevTitle: "개인정보로 인하여 아동의 사진, 영상은 모자이크 또는 게시되지 않습니다.",
+            nextHref: "./child-life-detail.html",
+            nextTitle: "6월 28일 모세방 소식입니다.",
+            listHref: "./child-life.html",
+            files: [
+              {
+                name: "child_life_program.jpg",
+                size: "1.4 MB",
+                src: "../images/namsanwon/hero-figma-01-image.png",
+                alt: "아이들이 야외에서 함께하는 모습",
+              },
+            ],
+          })
       : page.title === "갤러리 상세"
         ? postDetailContent({
             category: "갤러리",
@@ -476,15 +582,28 @@ function subpageContent(page) {
             datetime: "2024-01-02",
             author: "Administrator",
             views: "1,240 views",
-            image: {
-              src: "../images/namsanwon/hero-figma-02.jpg",
-              alt: "신세계 까사 봉사활동 사진",
-            },
+            editorHtml: `          <p>신세계 까사에서 방문하여 봉사활동을 진행해 주셨습니다.</p>
+          <p>아이들과 함께해 주신 따뜻한 마음에 감사드립니다.</p>`,
             listHref: "./gallery.html",
             files: [
-              { name: "KaKaoTalk_20260605_162736652_01.jpg", size: "1.4 MB" },
-              { name: "KaKaoTalk_20260605_162736652_02.jpg", size: "1.4 MB" },
-              { name: "KaKaoTalk_20260605_162736652_03.jpg", size: "1.4 MB" },
+              {
+                name: "KaKaoTalk_20260605_162736652_01.jpg",
+                size: "1.4 MB",
+                src: "../images/namsanwon/hero-figma-02.jpg",
+                alt: "신세계 까사 봉사활동 사진 1",
+              },
+              {
+                name: "KaKaoTalk_20260605_162736652_02.jpg",
+                size: "1.4 MB",
+                src: "../images/namsanwon/hero-figma-01-image.png",
+                alt: "신세계 까사 봉사활동 사진 2",
+              },
+              {
+                name: "KaKaoTalk_20260605_162736652_03.jpg",
+                size: "1.4 MB",
+                src: "../images/namsanwon/hero-figma-01-base.png",
+                alt: "신세계 까사 봉사활동 사진 3",
+              },
             ],
           })
       : defaultMainContent(page);
@@ -498,7 +617,7 @@ function subpageContent(page) {
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/fonts.css">
   <link rel="stylesheet" href="../css/root.css">
-  <link rel="stylesheet" href="../css/namsanwon.css">
+  <link rel="stylesheet" href="../css/namsanwon.css?v=${assetVersion}">
 </head>
 <body data-current-section="${page.group.key}" data-current-page="${page.activeFile}">
   <a class="skipLink" href="#main">본문 바로가기</a>
@@ -518,15 +637,16 @@ ${mainContent}
 
 ${footer}
 
-  <script src="../js/namsanwon.js"></script>
+  <script src="../js/namsanwon.js?v=${assetVersion}"></script>
 </body>
 </html>
 `;
 }
 
 const requestedFiles = new Set(process.argv.slice(2));
+const filesToBuild = requestedFiles.size ? Array.from(requestedFiles) : fs.readdirSync(pageDir);
 
-for (const file of fs.readdirSync(pageDir)) {
+for (const file of filesToBuild) {
   if (!file.endsWith(".html") || file === "namsanwon.html") continue;
   if (requestedFiles.size && !requestedFiles.has(file)) continue;
   const page = pageMap.get(file);

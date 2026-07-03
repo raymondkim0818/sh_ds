@@ -1086,8 +1086,23 @@ button {
   padding: 28px 0 20px;
 }
 
-.freeBoardToolbar {
+.freeBoardToolbar,
+.childLifeBoardToolbar {
   justify-content: flex-end;
+}
+
+.childLifeFeaturedImage {
+  width: 100%;
+  margin: 12px 0 0;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #a9ada3;
+}
+
+.childLifeFeaturedImage img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .noticeBoardFilters {
@@ -1396,6 +1411,33 @@ button {
 
 .freeBoardStatus.isAnswered {
   background: var(--primary);
+}
+
+.childLifeBoardList {
+  box-shadow: 0 4px 20px rgba(136, 176, 75, 0.08);
+}
+
+.childLifeBoardRow,
+.childLifeBoardHead {
+  grid-template-columns: 80px minmax(0, 1fr) 100px 128px 91px;
+}
+
+.childLifeBoardRow {
+  min-height: 58px;
+}
+
+.childLifeBoardRow .noticeBoardTitle {
+  padding-right: 16px;
+}
+
+.childLifeBoardAuthor,
+.childLifeBoardRow time,
+.childLifeBoardRow .noticeBoardViews {
+  color: var(--text-nav);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: var(--tracking-tight);
 }
 
 body.isSecretPostModalOpen {
@@ -1790,9 +1832,23 @@ body.isSecretPostModalOpen {
   content: "\00a0";
 }
 
+.postDetailEditor {
+  margin: 0 24px;
+}
+
+.postDetailImages {
+  display: grid;
+  gap: 24px;
+  margin: 0 24px 48px;
+}
+
 .postDetailImage {
   width: min(500px, calc(100% - 48px));
   margin: 0 auto;
+}
+
+.postDetailImages .postDetailImage {
+  width: min(500px, 100%);
 }
 
 .postDetailImage img {
@@ -1826,7 +1882,17 @@ body.isSecretPostModalOpen {
   width: 40px;
   height: 40px;
   border-radius: 6px;
-  background: #fff url("../images/namsanwon/icon-notice-image.svg") center / 16px 16px no-repeat;
+  background: #fff url("../images/namsanwon/icon-file.svg") center / 24px 24px no-repeat;
+}
+
+.postDetailFileIcon.isFile {
+  background-image: url("../images/namsanwon/icon-file.svg");
+  background-size: 24px 24px;
+}
+
+.postDetailFileIcon.isImage {
+  background-image: url("../images/namsanwon/icon-notice-image.svg");
+  background-size: 16px 16px;
 }
 
 .postDetailFileInfo {
@@ -2302,6 +2368,42 @@ body.isSecretPostModalOpen {
     grid-row: 3;
   }
 
+  .childLifeFeaturedImage {
+    border-radius: 16px;
+  }
+
+  .childLifeBoardRow {
+    min-height: 144px;
+    grid-template-rows: auto auto auto;
+  }
+
+  .childLifeBoardRow .noticeBoardTitle {
+    max-width: 100%;
+  }
+
+  .childLifeBoardRow.isPinned .noticeBoardTitle {
+    max-width: calc(100% - 28px);
+  }
+
+  .childLifeBoardRow .childLifeBoardAuthor {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    align-self: center;
+    color: var(--text-sub);
+    font-size: var(--font-b1);
+    line-height: var(--line-b1);
+  }
+
+  .childLifeBoardRow time {
+    grid-column: 1 / 2;
+    grid-row: 3;
+  }
+
+  .childLifeBoardRow .noticeBoardViews {
+    grid-column: 2 / 3;
+    grid-row: 3;
+  }
+
   .secretPostDialog {
     min-height: 0;
     padding: 40px 24px;
@@ -2467,8 +2569,21 @@ body.isSecretPostModalOpen {
     margin-left: 0;
   }
 
+  .postDetailEditor {
+    margin: 0;
+  }
+
+  .postDetailImages {
+    gap: 16px;
+    margin: 0 0 32px;
+  }
+
   .postDetailImage {
     width: min(100%, calc(100% - 36px));
+  }
+
+  .postDetailImages .postDetailImage {
+    width: 100%;
   }
 
   .postDetailFiles {
