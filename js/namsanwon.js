@@ -53,6 +53,45 @@
 
   markCurrentNav();
 
+  function scrollCurrentLocalNav() {
+    var localNav = document.querySelector('.localNavInner');
+    if (!localNav) return;
+
+    var activeLink = localNav.querySelector('a.isActive, a[aria-current="page"]');
+    if (!activeLink) return;
+
+    var targetLeft = activeLink.offsetLeft - ((localNav.clientWidth - activeLink.offsetWidth) / 2);
+    var maxScrollLeft = localNav.scrollWidth - localNav.clientWidth;
+    var nextScrollLeft = Math.max(0, Math.min(targetLeft, maxScrollLeft));
+
+    if (typeof localNav.scrollTo === 'function') {
+      localNav.scrollTo({
+        left: nextScrollLeft,
+        top: 0,
+        behavior: 'auto'
+      });
+    } else {
+      localNav.scrollLeft = nextScrollLeft;
+    }
+  }
+
+  function queueScrollCurrentLocalNav() {
+    scrollCurrentLocalNav();
+    window.setTimeout(scrollCurrentLocalNav, 0);
+    window.setTimeout(scrollCurrentLocalNav, 120);
+    if (window.requestAnimationFrame) {
+      window.requestAnimationFrame(scrollCurrentLocalNav);
+    }
+  }
+
+  queueScrollCurrentLocalNav();
+
+  window.addEventListener('load', queueScrollCurrentLocalNav);
+  window.addEventListener('resize', queueScrollCurrentLocalNav);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(queueScrollCurrentLocalNav);
+  }
+
   function closeSubMenus(exceptItem) {
     nav.querySelectorAll('.navItem.isOpen').forEach(function (item) {
       if (item === exceptItem) return;

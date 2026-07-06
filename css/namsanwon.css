@@ -64,40 +64,24 @@ button {
 .globalNavInner {
   display: flex;
   align-items: center;
-  width: min(1280px, 100%);
+  width: min(1104px, calc(100% - 40px));
   height: 80px;
   margin: 0 auto;
-  padding: 0 40px;
 }
 
 .logo,
 .footerLogo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
   flex: 0 0 auto;
 }
 
-.logoSymbol {
-  display: grid;
-  width: 40px;
+.logo img,
+.footerLogo img {
+  display: block;
+  width: 143px;
   height: 40px;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--primary);
-  color: var(--text-inverse);
-  font-size: var(--font-h3);
-  font-weight: 700;
-  line-height: var(--line-h3);
-  letter-spacing: var(--tracking-default);
-}
-
-.logoText {
-  color: var(--text);
-  font-size: var(--font-h1);
-  font-weight: 600;
-  line-height: var(--line-h1);
-  letter-spacing: var(--tracking-default);
+  flex: 0 0 auto;
 }
 
 .primaryNav {
@@ -168,7 +152,7 @@ button {
 .utilityNav {
   display: inline-flex;
   align-items: center;
-  gap: 0;
+  gap: 26px;
   flex: 0 0 auto;
   margin-right: 24px;
 }
@@ -178,7 +162,7 @@ button {
   display: inline-flex;
   align-items: center;
   height: 80px;
-  padding: 0 10px;
+  padding: 0;
   color: var(--text-sub);
   font-size: var(--font-h5);
   font-weight: 500;
@@ -189,7 +173,7 @@ button {
 .utilityNav a + a::before {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: -13px;
   width: 1px;
   height: 12px;
   background: rgba(116, 121, 104, 0.35);
@@ -267,18 +251,18 @@ button {
 
 .sitemapButton {
   display: inline-flex;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
   flex-direction: column;
-  gap: 5px;
+  gap: 3px;
   border-radius: var(--radius-sm);
 }
 
 .sitemapButton span {
-  width: 22px;
+  width: 14px;
   height: 2px;
   border-radius: 999px;
   background: var(--text-nav);
@@ -286,7 +270,7 @@ button {
 }
 
 .sitemapButton[aria-expanded="true"] span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(5px) rotate(45deg);
 }
 
 .sitemapButton[aria-expanded="true"] span:nth-child(2) {
@@ -294,7 +278,7 @@ button {
 }
 
 .sitemapButton[aria-expanded="true"] span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-5px) rotate(-45deg);
 }
 
 .sitemapButton:hover span,
@@ -859,10 +843,6 @@ button {
   border-right: 1px solid var(--line-inverse);
 }
 
-.footerLogo .logoText {
-  color: var(--text-inverse);
-}
-
 .footerInfo {
   display: grid;
   gap: 4px;
@@ -990,7 +970,7 @@ button {
   width: min(1104px, calc(100% - 40px));
   min-height: calc(100vh - 268px);
   margin: 0 auto;
-  padding: 88px 0;
+  padding: 32px 0 88px;
 }
 
 .subPage h2 {
@@ -1022,14 +1002,10 @@ button {
   letter-spacing: var(--tracking-default);
 }
 
-.noticeBoardPage {
-  padding-top: 32px;
-}
-
 .noticeBoardTop {
   display: flex;
-  min-height: 74px;
-  align-items: center;
+  min-height: 45px;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 24px;
   border-bottom: 1px solid var(--line-muted);
@@ -1083,11 +1059,12 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 28px 0 20px;
+  padding: 16px 0 8px;
 }
 
 .freeBoardToolbar,
-.childLifeBoardToolbar {
+.childLifeBoardToolbar,
+.galleryBoardToolbar {
   justify-content: flex-end;
 }
 
@@ -1237,7 +1214,7 @@ button {
 }
 
 .noticeBoardHead {
-  min-height: 43px;
+  min-height: 45px;
   border-bottom: 1px solid var(--line-muted);
   background: #fbfbfa;
   color: var(--text-nav);
@@ -1248,7 +1225,7 @@ button {
 }
 
 .noticeBoardRow {
-  min-height: 63px;
+  min-height: 58px;
   border-bottom: 1px solid var(--line-muted);
   color: var(--text-sub);
   font-size: 16px;
@@ -1612,22 +1589,24 @@ body.isSecretPostModalOpen {
   display: none;
 }
 
-.galleryBoardPage {
-  padding-top: 31px;
+.galleryBoard {
+  padding-top: 0;
 }
 
-.galleryBoard {
-  padding-top: 40px;
+.galleryBoardToolbar {
+  padding: 16px 0 8px;
 }
 
 .galleryBoardGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 28px 24px;
+  gap: 21px 24px;
+  margin-top: 12px;
 }
 
 .galleryBoardCard {
   display: block;
+  height: 342px;
   min-width: 0;
   overflow: hidden;
   border: 1px solid rgba(116, 121, 104, 0.2);
@@ -1646,7 +1625,7 @@ body.isSecretPostModalOpen {
 .galleryBoardThumb {
   display: block;
   width: 100%;
-  aspect-ratio: 360 / 240;
+  height: 197px;
   overflow: hidden;
   background: rgba(136, 176, 75, 0.08);
 }
@@ -1665,18 +1644,19 @@ body.isSecretPostModalOpen {
 
 .galleryBoardInfo {
   display: grid;
-  gap: 16px;
-  padding: 20px 20px 18px;
+  gap: 8px;
+  height: 143px;
+  padding: 24px 28px;
 }
 
 .galleryBoardInfo strong {
   display: -webkit-box;
   overflow: hidden;
-  min-height: 52px;
+  min-height: 50px;
   color: var(--text);
   font-size: 18px;
-  font-weight: 700;
-  line-height: 26px;
+  font-weight: 500;
+  line-height: 25.2px;
   letter-spacing: var(--tracking-default);
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -1687,6 +1667,9 @@ body.isSecretPostModalOpen {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  min-height: 37px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(219, 217, 217, 0.2);
   color: var(--text-sub);
   font-size: 14px;
   font-weight: 400;
@@ -1710,11 +1693,7 @@ body.isSecretPostModalOpen {
 }
 
 .galleryBoardPagination {
-  margin-top: 36px;
-}
-
-.postDetailPage {
-  padding-top: 31px;
+  margin-top: 24px;
 }
 
 .postDetailTop {
@@ -2487,21 +2466,23 @@ body.isSecretPostModalOpen {
     animation: noticeLoaderSpin 0.8s linear infinite;
   }
 
-  .galleryBoardPage {
-    padding-top: 28px;
-  }
-
-  .galleryBoard {
-    padding-top: 28px;
-  }
-
   .galleryBoardGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 20px 16px;
   }
 
+  .galleryBoardCard {
+    height: auto;
+  }
+
+  .galleryBoardThumb {
+    height: auto;
+    aspect-ratio: 352 / 197;
+  }
+
   .galleryBoardInfo {
     gap: 12px;
+    height: auto;
     padding: 16px;
   }
 
@@ -2509,10 +2490,6 @@ body.isSecretPostModalOpen {
     min-height: 48px;
     font-size: var(--font-h3);
     line-height: var(--line-h3);
-  }
-
-  .postDetailPage {
-    padding-top: 28px;
   }
 
   .postDetailTop {
@@ -2646,10 +2623,6 @@ body.isSecretPostModalOpen {
     width: min(100%, calc(100% - 32px));
   }
 
-  .logoText {
-    font-size: var(--font-h1);
-  }
-
   .subVisualInner,
   .localNavInner,
   .subPage {
@@ -2657,7 +2630,7 @@ body.isSecretPostModalOpen {
   }
 
   .subPage {
-    padding-top: 48px;
+    padding-top: 32px;
     padding-bottom: 64px;
   }
 
@@ -2736,10 +2709,6 @@ body.isSecretPostModalOpen {
     padding: 0 4px;
   }
 
-  .noticeBoardPage {
-    padding-top: 28px;
-  }
-
   .noticeBoardTop h2 {
     font-size: var(--font-h1);
     line-height: var(--line-h1);
@@ -2788,6 +2757,7 @@ body.isSecretPostModalOpen {
   }
 
   .galleryBoardThumb {
+    height: auto;
     aspect-ratio: 328 / 210;
   }
 

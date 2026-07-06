@@ -3,14 +3,13 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const pageDir = path.join(root, "page");
-const assetVersion = "20260703-7";
+const assetVersion = "20260706-1";
 const mainHtml = fs.readFileSync(path.join(pageDir, "namsanwon.html"), "utf8");
 const header = mainHtml.match(/<header class="globalNav"[\s\S]*?<\/header>/)[0];
 const footer = `  <footer class="footer" id="footer">
     <div class="footerInner">
       <a class="footerLogo" href="./namsanwon.html" aria-label="남산원 홈">
-        <span class="logoSymbol" aria-hidden="true">남</span>
-        <span class="logoText">남산원</span>
+        <img src="../images/namsanwon/logo-Footer.svg" alt="남산원">
       </a>
       <div class="footerInfo">
         <p><b>주소:</b> (우)04628 서울시 중구 소파로 2길 31</p>
@@ -376,11 +375,29 @@ const galleryPosts = [
     views: "284",
     image: "../images/namsanwon/hero-figma-01-base.png",
   },
+  {
+    title: "아동 생활지원 프로그램",
+    date: "2023.11.12",
+    views: "246",
+    image: "../images/namsanwon/hero-figma-02.jpg",
+  },
+  {
+    title: "지역사회와 함께한 체험활동",
+    date: "2023.11.08",
+    views: "311",
+    image: "../images/namsanwon/hero-figma-01-image.png",
+  },
+  {
+    title: "남산원 가을 운동회",
+    date: "2023.11.04",
+    views: "529",
+    image: "../images/namsanwon/hero-figma-01-base.png",
+  },
 ];
 
 function galleryMainContent() {
   return `  <main class="subPage galleryBoardPage" id="main">
-    <div class="postDetailTop">
+    <div class="noticeBoardTop">
       <h2>갤러리</h2>
       <nav class="breadcrumb" aria-label="현재 위치">
         <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
@@ -390,6 +407,16 @@ function galleryMainContent() {
     </div>
 
     <section class="galleryBoard" aria-label="갤러리 목록">
+      <div class="noticeBoardToolbar galleryBoardToolbar">
+        <form class="noticeBoardSearch" action="#" role="search" aria-label="갤러리 검색">
+          <select aria-label="검색 분류">
+            <option>전체</option>
+          </select>
+          <input type="search" placeholder="검색어를 입력하세요" aria-label="검색어">
+          <button type="submit"><span class="blind">검색</span></button>
+        </form>
+      </div>
+
       <div class="galleryBoardGrid">
 ${galleryPosts
   .map((post) => `        <a class="galleryBoardCard" href="./gallery-detail.html">
@@ -505,7 +532,15 @@ ${fileList}
 
 function defaultMainContent(page) {
   return `  <main class="subPage" id="main">
-    <h2>${page.title}</h2>
+    <div class="noticeBoardTop">
+      <h2>${page.title}</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>${page.group.title}</span>
+        <strong>${page.title}</strong>
+      </nav>
+    </div>
+
     <p>${page.title} 페이지입니다. 세부 콘텐츠는 운영 자료에 맞춰 확장할 수 있습니다.</p>
     <a class="subPageLink" href="./namsanwon.html">메인으로 돌아가기</a>
   </main>`;

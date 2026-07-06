@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/fonts.css">
   <link rel="stylesheet" href="../css/root.css">
-  <link rel="stylesheet" href="../css/namsanwon.css">
+  <link rel="stylesheet" href="../css/namsanwon.css?v=20260706-1">
 </head>
 <body data-current-section="community" data-current-page="gallery.html">
   <a class="skipLink" href="#main">본문 바로가기</a>
@@ -15,8 +15,7 @@
 <header class="globalNav" data-header>
     <div class="globalNavInner">
       <a class="logo" href="./namsanwon.html" aria-label="남산원 홈">
-        <span class="logoSymbol" aria-hidden="true">남</span>
-        <span class="logoText">남산원</span>
+        <img src="../images/namsanwon/logo-Top.svg" alt="남산원">
       </a>
 
       <button class="menuButton" type="button" aria-controls="primaryNav" aria-expanded="false" data-menu-button>
@@ -148,7 +147,7 @@
   </nav>
 
   <main class="subPage galleryBoardPage" id="main">
-    <div class="postDetailTop">
+    <div class="noticeBoardTop">
       <h2>갤러리</h2>
       <nav class="breadcrumb" aria-label="현재 위치">
         <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
@@ -158,6 +157,16 @@
     </div>
 
     <section class="galleryBoard" aria-label="갤러리 목록">
+      <div class="noticeBoardToolbar galleryBoardToolbar">
+        <form class="noticeBoardSearch" action="#" role="search" aria-label="갤러리 검색">
+          <select aria-label="검색 분류">
+            <option>전체</option>
+          </select>
+          <input type="search" placeholder="검색어를 입력하세요" aria-label="검색어">
+          <button type="submit"><span class="blind">검색</span></button>
+        </form>
+      </div>
+
       <div class="galleryBoardGrid">
         <a class="galleryBoardCard" href="./gallery-detail.html">
           <span class="galleryBoardThumb">
@@ -303,6 +312,42 @@
             </span>
           </span>
         </a>
+        <a class="galleryBoardCard" href="./gallery-detail.html">
+          <span class="galleryBoardThumb">
+            <img src="../images/namsanwon/hero-figma-02.jpg" alt="">
+          </span>
+          <span class="galleryBoardInfo">
+            <strong>아동 생활지원 프로그램</strong>
+            <span class="galleryBoardMeta">
+              <time>2023.11.12</time>
+              <span class="galleryBoardViews">246</span>
+            </span>
+          </span>
+        </a>
+        <a class="galleryBoardCard" href="./gallery-detail.html">
+          <span class="galleryBoardThumb">
+            <img src="../images/namsanwon/hero-figma-01-image.png" alt="">
+          </span>
+          <span class="galleryBoardInfo">
+            <strong>지역사회와 함께한 체험활동</strong>
+            <span class="galleryBoardMeta">
+              <time>2023.11.08</time>
+              <span class="galleryBoardViews">311</span>
+            </span>
+          </span>
+        </a>
+        <a class="galleryBoardCard" href="./gallery-detail.html">
+          <span class="galleryBoardThumb">
+            <img src="../images/namsanwon/hero-figma-01-base.png" alt="">
+          </span>
+          <span class="galleryBoardInfo">
+            <strong>남산원 가을 운동회</strong>
+            <span class="galleryBoardMeta">
+              <time>2023.11.04</time>
+              <span class="galleryBoardViews">529</span>
+            </span>
+          </span>
+        </a>
       </div>
 
       <nav class="noticeBoardPagination galleryBoardPagination" aria-label="갤러리 페이지">
@@ -320,8 +365,7 @@
   <footer class="footer" id="footer">
     <div class="footerInner">
       <a class="footerLogo" href="./namsanwon.html" aria-label="남산원 홈">
-        <span class="logoSymbol" aria-hidden="true">남</span>
-        <span class="logoText">남산원</span>
+        <img src="../images/namsanwon/logo-Footer.svg" alt="남산원">
       </a>
       <div class="footerInfo">
         <p><b>주소:</b> (우)04628 서울시 중구 소파로 2길 31</p>
@@ -332,6 +376,6 @@
     </div>
   </footer>
 
-  <script src="../js/namsanwon.js"></script>
+  <script src="../js/namsanwon.js?v=20260706-1"></script>
 </body>
 </html>
