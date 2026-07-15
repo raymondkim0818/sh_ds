@@ -3,7 +3,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const pageDir = path.join(root, "page");
-const assetVersion = "20260706-1";
+const assetVersion = "20260715-1";
 const mainHtml = fs.readFileSync(path.join(pageDir, "namsanwon.html"), "utf8");
 const header = mainHtml.match(/<header class="globalNav"[\s\S]*?<\/header>/)[0];
 const footer = `  <footer class="footer" id="footer">
@@ -77,11 +77,12 @@ const groups = [
   },
   {
     key: "member",
-    title: "회원",
-    description: "남산원 홈페이지 회원 서비스를 이용하실 수 있습니다.",
+    title: "멤버쉽",
+    description: "남산원의 가족이 되어주세요.",
     items: [
-      ["login.html", "로그인"],
       ["join.html", "회원가입"],
+      ["login.html", "로그인"],
+      ["find-account.html", "아이디/비밀번호 찾기"],
     ],
   },
 ];
@@ -135,6 +136,34 @@ pageMap.set("sitemap.html", {
   activeFile: "sitemap.html",
   title: "사이트맵",
 });
+
+const memberGroup = groups.find((group) => group.key === "member");
+if (memberGroup) {
+  pageMap.set("join-info.html", {
+    group: memberGroup,
+    activeFile: "join.html",
+    title: "회원가입",
+    joinStep: "info",
+  });
+  pageMap.set("join-complete.html", {
+    group: memberGroup,
+    activeFile: "join.html",
+    title: "회원가입",
+    joinStep: "complete",
+  });
+  pageMap.set("find-account-cert.html", {
+    group: memberGroup,
+    activeFile: "find-account.html",
+    title: "아이디/비밀번호 찾기",
+    findAccountStep: "cert",
+  });
+  pageMap.set("find-password-reset.html", {
+    group: memberGroup,
+    activeFile: "find-account.html",
+    title: "아이디/비밀번호 찾기",
+    findAccountStep: "reset",
+  });
+}
 
 function localNav(group, activeFile) {
   return `
@@ -546,6 +575,384 @@ function defaultMainContent(page) {
   </main>`;
 }
 
+function loginMainContent(page) {
+  return `  <main class="subPage loginPage" id="main">
+    <div class="noticeBoardTop">
+      <h2>${page.title}</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>${page.group.title}</span>
+        <strong>${page.title}</strong>
+      </nav>
+    </div>
+
+    <section class="loginPanel" aria-label="로그인">
+      <form class="loginForm" action="#">
+        <div class="loginFormTop">
+          <div class="loginFields">
+            <div class="loginField">
+              <label for="loginUserId">아이디</label>
+              <input id="loginUserId" name="userId" type="text" placeholder="아이디 입력">
+            </div>
+            <div class="loginField">
+              <label for="loginPassword">비밀번호</label>
+              <input id="loginPassword" name="password" type="password" placeholder="비밀번호 입력">
+            </div>
+          </div>
+          <button class="loginSubmit" type="submit"><span class="buttonText">로그인</span></button>
+        </div>
+
+        <div class="loginFindLinks">
+          <a href="./find-account.html">아이디 찾기</a>
+          <a href="./find-account.html">비밀번호 재설정</a>
+        </div>
+
+        <div class="loginJoinGuide">
+          <span aria-hidden="true"></span>
+          <p>아이디가 없으신가요?</p>
+          <a href="./join.html">회원가입</a>
+        </div>
+      </form>
+    </section>
+  </main>`;
+}
+
+function findAccountMainContent(page) {
+  return `  <main class="subPage findAccountPage" id="main">
+    <div class="noticeBoardTop">
+      <h2>${page.title}</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>${page.group.title}</span>
+        <strong>${page.title}</strong>
+      </nav>
+    </div>
+
+    <section class="findAccountPanel" aria-label="아이디/비밀번호 찾기">
+      <div class="findAccountCards">
+        <article class="findAccountCard">
+          <header class="findAccountHeader">
+            <div>
+              <h3>아이디 찾기</h3>
+              <p>사용자 아이디를 잊어버리셨나요?</p>
+              <p>회원님의 이름과 가입시 작성하신 이메일 주소를 입력해주세요.</p>
+            </div>
+            <img src="../images/namsanwon/icon_find_account_01.svg" alt="" aria-hidden="true">
+          </header>
+
+          <form class="findAccountForm" action="#">
+            <div class="findAccountFields">
+              <div class="findAccountField">
+                <label for="findUserName">이름</label>
+                <input id="findUserName" name="userName" type="text" placeholder="이름 입력">
+              </div>
+              <div class="findAccountField">
+                <label for="findUserEmail">이메일</label>
+                <input id="findUserEmail" name="userEmail" type="email" placeholder="이메일 입력">
+              </div>
+            </div>
+            <button class="findAccountButton" type="submit"><span class="buttonText">확인</span></button>
+          </form>
+        </article>
+
+        <article class="findAccountCard">
+          <header class="findAccountHeader">
+            <div>
+              <h3>비밀번호 재설정</h3>
+              <p>비밀번호를 잊어버리셨나요?</p>
+              <p>아이디와 이름, 가입시 작성하신 이메일 주소를 입력해 주세요.</p>
+            </div>
+            <img src="../images/namsanwon/icon_find_account_02.svg" alt="" aria-hidden="true">
+          </header>
+
+          <form class="findAccountForm" action="./find-account-cert.html">
+            <div class="findAccountFields">
+              <div class="findAccountField">
+                <label for="resetUserId">아이디</label>
+                <input id="resetUserId" name="userId" type="text" placeholder="아이디 입력">
+              </div>
+              <div class="findAccountField">
+                <label for="resetUserName">이름</label>
+                <input id="resetUserName" name="userName" type="text" placeholder="이름 입력">
+              </div>
+              <div class="findAccountField">
+                <label for="resetUserEmail">이메일</label>
+                <input id="resetUserEmail" name="userEmail" type="email" placeholder="이메일 입력">
+              </div>
+            </div>
+            <button class="findAccountButton" type="submit"><span class="buttonText">인증번호 받기</span></button>
+          </form>
+        </article>
+      </div>
+    </section>
+  </main>`;
+}
+
+function findAccountCertMainContent(page) {
+  return `  <main class="subPage findAccountPage findAccountCertPage" id="main">
+    <div class="noticeBoardTop">
+      <h2>${page.title}</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>${page.group.title}</span>
+        <strong>${page.title}</strong>
+      </nav>
+    </div>
+
+    <section class="findAccountVerifyPanel" aria-label="인증번호 입력하기">
+      <article class="findAccountCard findAccountVerifyCard">
+        <header class="findAccountHeader">
+          <div>
+            <h3>인증번호 입력하기</h3>
+            <p>메일로 인증번호를 전송하였습니다.</p>
+            <p>입력하신 이메일로 전송 받은 6자리 번호를 입력해주세요.</p>
+          </div>
+          <img src="../images/namsanwon/icon_find_account_02.svg" alt="" aria-hidden="true">
+        </header>
+
+        <form class="findAccountForm findAccountVerifyForm" action="./find-password-reset.html">
+          <div class="findAccountCodeGroup" aria-label="인증번호 6자리">
+            <input type="text" inputmode="numeric" maxlength="1" value="1" aria-label="인증번호 첫 번째 자리">
+            <input type="text" inputmode="numeric" maxlength="1" value="2" aria-label="인증번호 두 번째 자리">
+            <input type="text" inputmode="numeric" maxlength="1" value="3" aria-label="인증번호 세 번째 자리">
+            <input type="text" inputmode="numeric" maxlength="1" value="4" aria-label="인증번호 네 번째 자리">
+            <input type="text" inputmode="numeric" maxlength="1" value="5" aria-label="인증번호 다섯 번째 자리">
+            <input type="text" inputmode="numeric" maxlength="1" value="6" aria-label="인증번호 여섯 번째 자리">
+          </div>
+          <button class="findAccountButton" type="submit"><span class="buttonText">확인</span></button>
+        </form>
+      </article>
+    </section>
+  </main>`;
+}
+
+function findPasswordResetMainContent(page) {
+  return `  <main class="subPage findAccountPage findPasswordResetPage" id="main">
+    <div class="noticeBoardTop">
+      <h2>${page.title}</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>${page.group.title}</span>
+        <strong>${page.title}</strong>
+      </nav>
+    </div>
+
+    <section class="findAccountResetPanel" aria-label="비밀번호 재설정하기">
+      <article class="findAccountCard findAccountResetCard">
+        <header class="findAccountHeader">
+          <div>
+            <h3>비밀번호 재설정하기</h3>
+            <p>이메일 인증되었습니다.</p>
+            <p>새로운 비밀번호를 입력해주세요.</p>
+          </div>
+          <img src="../images/namsanwon/icon_find_account_02.svg" alt="" aria-hidden="true">
+        </header>
+
+        <form class="findAccountForm findAccountResetForm" action="./login.html">
+          <div class="findAccountResetFields">
+            <div class="findAccountResetField">
+              <input id="newPassword" name="newPassword" type="password" placeholder="비밀번호 입력">
+              <p>* 10자 이상이면서 영문, 숫자, 특수문자를 모두 포함하세요.</p>
+            </div>
+            <div class="findAccountResetField">
+              <input id="newPasswordConfirm" name="newPasswordConfirm" type="password" placeholder="비밀번호 재확인">
+              <p>* 비밀번호를 다시 입력해주세요.</p>
+            </div>
+          </div>
+          <button class="findAccountButton" type="submit"><span class="buttonText">재설정하기</span></button>
+        </form>
+      </article>
+    </section>
+  </main>`;
+}
+
+function joinMainContent(page) {
+  return `  <main class="subPage joinPage" id="main">
+    <div class="noticeBoardTop">
+      <h2>${page.title}</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>${page.group.title}</span>
+        <strong>${page.title}</strong>
+      </nav>
+    </div>
+
+    <section class="joinFlow" aria-label="회원가입 단계">
+      <ol class="joinSteps">
+        <li class="isActive" aria-current="step"><span>1</span><strong>약관 동의</strong></li>
+        <li><span>2</span><strong>정보 입력</strong></li>
+        <li><span>3</span><strong>가입 완료</strong></li>
+      </ol>
+
+      <form class="joinTermsCard" action="./join-info.html" data-join-terms-form>
+        <div class="joinTermsHeader">
+          <h3>회원가입 약관동의</h3>
+        </div>
+
+        <div class="joinTermsGroup">
+          <h4>회원가입 약관 <em>*</em></h4>
+          <div class="joinTermsBox" tabindex="0">
+            <p>제1조 (목적) 본 약관은 사회복지법인 남산원(이하 "원"이라 한다)이 제공하는 인터넷 서비스의 이용조건 및 절차에 관한 사항을 규정함을 목적으로 합니다.</p>
+            <p>제2조 (약관의 효력과 변경) 1. 원은 이용자가 본 약관 내용에 동의하는 것을 조건으로 서비스를 제공할 것이며, 이용자가 본 약관의 내용에 동의하는 경우 원의 서비스 제공 행위 및 이용자의 서비스 이용 행위에는 본 약관이 우선적으로 적용됩니다.</p>
+            <p>제3조 (이용자의 의무) 이용자는 서비스 이용 시 다음 각 호의 행위를 하지 않기로 동의합니다. 타인의 아이디와 비밀번호를 도용하는 행위, 저속, 음란, 모욕적, 위협적이거나 타인의 사생활을 침해할 수 있는 내용을 전송, 게시, 게재, 전자 메일 또는 기타의 방법으로 전송하는 행위 등...</p>
+          </div>
+          <label class="joinCheck joinCheckSmall">
+            <input type="checkbox" name="terms" data-join-required>
+            <span aria-hidden="true"></span>
+            <b>회원가입약관에 동의합니다.</b>
+          </label>
+        </div>
+
+        <div class="joinTermsGroup">
+          <h4>개인정보취급방침 <em>*</em></h4>
+          <div class="joinTermsBox" tabindex="0">
+            <p>사회복지법인 남산원은 귀하의 개인정보 보호를 매우 중요시하며, 『개인정보보호법』을 준수하고 있습니다. 원은 개인정보취급방침을 통하여 귀하께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.</p>
+            <p>1. 수집하는 개인정보 항목: 성명, 생년월일, 성별, 로그인ID, 비밀번호, 자택 전화번호, 자택 주소, 휴대전화번호, 이메일 등</p>
+            <p>2. 개인정보의 수집 및 이용목적: 회원제 서비스 이용에 따른 본인확인, 개인 식별, 불량회원의 부정 이용 방지와 비인가 사용 방지, 가입 의사 확인, 연령확인, 불만처리 등 민원처리, 고지사항 전달 등</p>
+          </div>
+          <label class="joinCheck joinCheckSmall">
+            <input type="checkbox" name="privacy" data-join-required>
+            <span aria-hidden="true"></span>
+            <b>개인정보취급방침에 동의합니다.</b>
+          </label>
+        </div>
+
+        <label class="joinCheck joinCheckAll">
+          <input type="checkbox" name="allAgree" data-join-all>
+          <span aria-hidden="true"></span>
+          <b>전체 약관에 동의합니다.</b>
+        </label>
+
+        <button class="joinNextButton" type="submit"><span class="buttonText">동의하고 다음 단계로</span></button>
+      </form>
+    </section>
+  </main>`;
+}
+
+function joinInfoMainContent(page) {
+  return `  <main class="subPage joinPage" id="main">
+    <div class="noticeBoardTop">
+      <h2>${page.title}</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>${page.group.title}</span>
+        <strong>${page.title}</strong>
+      </nav>
+    </div>
+
+    <section class="joinFlow" aria-label="회원가입 단계">
+      <ol class="joinSteps">
+        <li><span>1</span><strong>약관 동의</strong></li>
+        <li class="isActive" aria-current="step"><span>2</span><strong>정보 입력</strong></li>
+        <li><span>3</span><strong>가입 완료</strong></li>
+      </ol>
+
+      <form class="joinFormCard" action="./join-complete.html">
+        <div class="joinTermsHeader">
+          <h3>회원정보 입력</h3>
+        </div>
+
+        <div class="joinField joinFieldWithButton">
+          <label for="joinUserId">아이디 <em>*</em></label>
+          <div class="joinInputRow">
+            <input id="joinUserId" name="userId" type="text" placeholder="아이디 입력" required>
+            <button type="button"><span class="buttonText">중복 확인</span></button>
+          </div>
+          <p>영문 숫자 조합 3~12자, 가입 후 아이디는 변경할 수 없습니다.</p>
+        </div>
+
+        <div class="joinFieldGrid">
+          <div class="joinField">
+            <label for="joinPassword">비밀번호 <em>*</em></label>
+            <input id="joinPassword" name="password" type="password" placeholder="비밀번호 입력" required>
+            <p>특수문자 및 영문 대/소문자, 숫자 조합 4~12자리 입력</p>
+          </div>
+          <div class="joinField">
+            <label for="joinPasswordConfirm">비밀번호 확인 <em>*</em></label>
+            <input id="joinPasswordConfirm" name="passwordConfirm" type="password" placeholder="비밀번호 재입력" required>
+          </div>
+        </div>
+
+        <div class="joinField">
+          <label for="joinName">이름 <em>*</em></label>
+          <input id="joinName" name="name" type="text" placeholder="실명 입력" required>
+        </div>
+
+        <div class="joinField">
+          <label for="joinTel">전화번호</label>
+          <input id="joinTel" name="tel" type="tel" placeholder="ex) 02-1234-5678">
+        </div>
+
+        <div class="joinField">
+          <label for="joinMobile">휴대폰</label>
+          <input id="joinMobile" name="mobile" type="tel" placeholder="ex) 010-1234-5678">
+          <div class="joinRadioLine">
+            <span>SMS 받으시겠습니까?</span>
+            <label class="joinRadio joinRadioMedium"><input type="radio" name="smsAgree" value="yes" checked><span aria-hidden="true"></span><b>예</b></label>
+            <label class="joinRadio joinRadioMedium"><input type="radio" name="smsAgree" value="no"><span aria-hidden="true"></span><b>아니오</b></label>
+          </div>
+        </div>
+
+        <div class="joinField">
+          <label for="joinEmail">이메일 <em>*</em></label>
+          <input id="joinEmail" name="email" type="email" placeholder="example@email.com" required>
+          <div class="joinRadioLine">
+            <span>이메일을 받으시겠습니까?</span>
+            <label class="joinRadio joinRadioMedium"><input type="radio" name="emailAgree" value="yes" checked><span aria-hidden="true"></span><b>예</b></label>
+            <label class="joinRadio joinRadioMedium"><input type="radio" name="emailAgree" value="no"><span aria-hidden="true"></span><b>아니오</b></label>
+          </div>
+        </div>
+
+        <div class="joinField">
+          <label for="joinZip">주소 <em>*</em></label>
+          <div class="joinInputRow">
+            <input id="joinZip" name="zip" type="text" placeholder="우편번호" required>
+            <button type="button"><span class="buttonText">우편번호 찾기</span></button>
+          </div>
+          <input name="address" type="text" placeholder="기본 주소" required>
+          <input name="addressDetail" type="text" placeholder="상세 주소 입력" required>
+        </div>
+
+        <div class="joinField joinCaptchaField">
+          <label for="joinCaptcha">자동등록방지코드 <em>*</em></label>
+          <div class="joinCaptcha" aria-hidden="true">8N4K6P</div>
+          <input id="joinCaptcha" name="captcha" type="text" placeholder="위 이미지의 자동방지 코드를 입력하세요." required>
+        </div>
+
+        <button class="joinNextButton" type="submit"><span class="buttonText">회원가입 완료</span></button>
+      </form>
+    </section>
+  </main>`;
+}
+
+function joinCompleteMainContent(page) {
+  return `  <main class="subPage joinPage" id="main">
+    <div class="noticeBoardTop">
+      <h2>${page.title}</h2>
+      <nav class="breadcrumb" aria-label="현재 위치">
+        <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
+        <span>${page.group.title}</span>
+        <strong>${page.title}</strong>
+      </nav>
+    </div>
+
+    <section class="joinFlow" aria-label="회원가입 단계">
+      <ol class="joinSteps">
+        <li><span>1</span><strong>약관 동의</strong></li>
+        <li><span>2</span><strong>정보 입력</strong></li>
+        <li class="isActive" aria-current="step"><span>3</span><strong>가입 완료</strong></li>
+      </ol>
+
+      <div class="joinCompleteCard">
+        <div class="joinCompleteIcon" aria-hidden="true"></div>
+        <h3>가입해주셔서 감사합니다.</h3>
+        <p>입력하신 고객님의 정보는 개인정보취급방침에 따라 보호됩니다.</p>
+        <a class="joinConfirmButton" href="./login.html"><span class="buttonText">확인</span></a>
+      </div>
+    </section>
+  </main>`;
+}
+
 function subpageContent(page) {
   const mainContent = page.activeFile === "notice.html" && page.title === "공지사항"
     ? noticeMainContent()
@@ -555,6 +962,20 @@ function subpageContent(page) {
       ? childLifeMainContent()
     : page.activeFile === "gallery.html" && page.title === "갤러리"
       ? galleryMainContent()
+    : page.activeFile === "login.html" && page.title === "로그인"
+      ? loginMainContent(page)
+    : page.findAccountStep === "cert"
+      ? findAccountCertMainContent(page)
+    : page.findAccountStep === "reset"
+      ? findPasswordResetMainContent(page)
+    : page.activeFile === "find-account.html" && page.title === "아이디/비밀번호 찾기"
+      ? findAccountMainContent(page)
+    : page.joinStep === "info"
+      ? joinInfoMainContent(page)
+    : page.joinStep === "complete"
+      ? joinCompleteMainContent(page)
+    : page.activeFile === "join.html" && page.title === "회원가입"
+      ? joinMainContent(page)
     : page.title === "게시판 상세"
       ? postDetailContent({
           category: "공지사항",
@@ -649,6 +1070,7 @@ function subpageContent(page) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${page.title} | 남산원</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/fonts.css">
   <link rel="stylesheet" href="../css/root.css">

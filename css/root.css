@@ -55,6 +55,8 @@
   --line-b2: 16px;
   --tracking-default: 0;
   --tracking-tight: -0.3px;
+  --form-control-height: 40px;
+  --form-text-y-adjust: 2px;
 
   /* Effect */
   --shadow-boardcard: 0 4px 18px rgba(136, 176, 75, 0.12);

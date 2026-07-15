@@ -1054,6 +1054,936 @@ button {
   background: url("../images/namsanwon/icon_home.svg") center / 16px 16px no-repeat;
 }
 
+.joinPage {
+  padding-bottom: 84px;
+}
+
+.joinFlow {
+  display: flex;
+  width: min(800px, 100%);
+  flex-direction: column;
+  gap: 48px;
+  align-items: stretch;
+  margin: 28px auto 0;
+}
+
+.joinSteps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.joinSteps li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+  opacity: 0.5;
+  white-space: nowrap;
+}
+
+.joinSteps li + li::before {
+  display: block;
+  width: 48px;
+  height: 1px;
+  margin-right: 4px;
+  background: var(--line-muted);
+  content: "";
+}
+
+.joinSteps span {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #a9ada3;
+  color: var(--text-nav);
+  font-family: "Be Vietnam Pro", "Pretendard", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+  padding-top: 3px;
+}
+
+.joinSteps strong {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  font: inherit;
+  line-height: 1;
+  padding-top: 4px;
+}
+
+.joinSteps .isActive {
+  color: var(--secondary);
+  font-weight: 700;
+  opacity: 1;
+}
+
+.joinSteps .isActive span {
+  background: var(--secondary);
+  color: var(--surface);
+}
+
+.joinTermsCard,
+.joinFormCard,
+.joinCompleteCard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 49px;
+  border: 1px solid var(--line-muted);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 4px 9px rgba(136, 176, 75, 0.12);
+}
+
+.joinFormCard {
+  align-items: stretch;
+}
+
+.joinCompleteCard {
+  min-height: 338px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.joinTermsHeader {
+  padding-bottom: 13px;
+  border-bottom: 1px solid var(--line-muted);
+}
+
+.joinTermsHeader h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: var(--tracking-default);
+}
+
+.joinTermsGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.joinTermsGroup h4 {
+  margin: 0;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  letter-spacing: var(--tracking-default);
+}
+
+.joinTermsGroup h4 em {
+  color: #ba1a1a;
+  font-style: normal;
+}
+
+.joinTermsBox {
+  height: 160px;
+  overflow: auto;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f9f8f8;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: var(--tracking-default);
+}
+
+.joinTermsBox p {
+  max-width: none;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.joinTermsBox p + p {
+  margin-top: 18px;
+}
+
+.joinCheck {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-end;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.joinCheck input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.joinCheck span {
+  display: inline-flex;
+  flex: 0 0 auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.joinCheckSmall span {
+  width: 16px;
+  height: 16px;
+  background-image: url("../images/namsanwon/icon_check_S.svg");
+}
+
+.joinCheckSmall input:checked + span {
+  background-image: url("../images/namsanwon/icon_check_S_active.svg");
+}
+
+.joinCheckSmall.isActive span {
+  background-image: url("../images/namsanwon/icon_check_S_active.svg");
+}
+
+.joinCheckSmall input:disabled + span {
+  background-image: url("../images/namsanwon/icon_check_S_disabled.svg");
+}
+
+.joinCheckSmall.isDisabled span {
+  background-image: url("../images/namsanwon/icon_check_S_disabled.svg");
+}
+
+.joinCheckSmall input:checked:disabled + span {
+  background-image: url("../images/namsanwon/icon_check_S_active_disabled.svg");
+}
+
+.joinCheckSmall.isActive.isDisabled span {
+  background-image: url("../images/namsanwon/icon_check_S_active_disabled.svg");
+}
+
+.joinCheckAll span {
+  width: 20px;
+  height: 20px;
+  background-image: url("../images/namsanwon/icon_check_M.svg");
+}
+
+.joinCheckAll input:checked + span {
+  background-image: url("../images/namsanwon/icon_check_M_active.svg");
+}
+
+.joinCheckAll.isActive span {
+  background-image: url("../images/namsanwon/icon_check_M_active.svg");
+}
+
+.joinCheckAll input:disabled + span {
+  background-image: url("../images/namsanwon/icon_check_M_disabled.svg");
+}
+
+.joinCheckAll.isDisabled span {
+  background-image: url("../images/namsanwon/icon_check_M_disabled.svg");
+}
+
+.joinCheckAll input:checked:disabled + span {
+  background-image: url("../images/namsanwon/icon_check_M_active_disabled.svg");
+}
+
+.joinCheckAll.isActive.isDisabled span {
+  background-image: url("../images/namsanwon/icon_check_M_active_disabled.svg");
+}
+
+.joinCheck input:focus-visible + span {
+  outline: 2px solid rgba(69, 104, 5, 0.3);
+  outline-offset: 2px;
+}
+
+.joinCheck b {
+  display: inline-flex;
+  align-items: center;
+  font-weight: inherit;
+  line-height: 1;
+  padding-top: 3px;
+}
+
+.joinCheckSmall {
+  height: 24px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.3px;
+}
+
+.joinCheckAll {
+  gap: 8px;
+  height: 24px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: var(--tracking-default);
+}
+
+.joinNextButton {
+  display: inline-flex;
+  width: 100%;
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 24px;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--secondary);
+  color: var(--surface);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: var(--tracking-default);
+  cursor: pointer;
+}
+
+.joinNextButton:focus-visible {
+  outline: 3px solid rgba(69, 104, 5, 0.25);
+  outline-offset: 3px;
+}
+
+.buttonText {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transform: translateY(2px);
+  white-space: nowrap;
+}
+
+.joinField,
+.joinFieldGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.joinFieldGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.loginField label,
+.findAccountField label {
+  display: inline-flex;
+  min-height: var(--form-control-height);
+  align-items: center;
+  color: #201a18;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: var(--tracking-default);
+  padding-top: var(--form-text-y-adjust);
+}
+
+.joinField label,
+.joinField > span {
+  color: #201a18;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: var(--tracking-default);
+}
+
+.joinField em {
+  color: #ba1a1a;
+  font-style: normal;
+}
+
+.joinField input[type="text"],
+.joinField input[type="password"],
+.joinField input[type="email"],
+.joinField input[type="tel"],
+.loginField input,
+.findAccountField input,
+.findAccountResetField input {
+  width: 100%;
+  height: var(--form-control-height);
+  padding: var(--form-text-y-adjust) 12px 0;
+  border: 1px solid var(--line-muted);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.joinField input::placeholder,
+.loginField input::placeholder,
+.findAccountField input::placeholder,
+.findAccountResetField input::placeholder {
+  color: var(--text-sub);
+  opacity: 1;
+}
+
+.joinField input:focus-visible,
+.loginField input:focus-visible,
+.findAccountField input:focus-visible,
+.findAccountResetField input:focus-visible {
+  border-color: var(--secondary);
+  outline: 3px solid rgba(69, 104, 5, 0.12);
+}
+
+.joinField p {
+  max-width: none;
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.joinInputRow {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.joinInputRow input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.joinInputRow button {
+  display: inline-flex;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 0 28px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--text-nav);
+  color: var(--surface);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  cursor: pointer;
+}
+
+.joinRadioLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  align-items: center;
+}
+
+.joinRadioLine > span {
+  margin-right: 8px;
+  color: var(--text-sub);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.joinRadioLine label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  white-space: nowrap;
+}
+
+.joinRadio {
+  cursor: pointer;
+}
+
+.joinRadio input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.joinRadio span {
+  display: inline-flex;
+  flex: 0 0 auto;
+  margin-right: 8px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.joinRadio b {
+  display: inline-flex;
+  align-items: center;
+  font-weight: inherit;
+  line-height: 1;
+  padding-top: 2px;
+  white-space: nowrap;
+}
+
+.joinRadioSmall span {
+  width: 16px;
+  height: 16px;
+  background-image: url("../images/namsanwon/icon_radio_S.svg");
+}
+
+.joinRadioSmall input:checked + span,
+.joinRadioSmall.isActive span {
+  background-image: url("../images/namsanwon/icon_radio_S_active.svg");
+}
+
+.joinRadioSmall input:disabled + span,
+.joinRadioSmall.isDisabled span {
+  background-image: url("../images/namsanwon/icon_radio_S_disabled.svg");
+}
+
+.joinRadioSmall input:checked:disabled + span,
+.joinRadioSmall.isActive.isDisabled span {
+  background-image: url("../images/namsanwon/icon_radio_S_active_disabled.svg");
+}
+
+.joinRadioMedium span {
+  width: 20px;
+  height: 20px;
+  background-image: url("../images/namsanwon/icon_radio_M.svg");
+}
+
+.joinRadioMedium input:checked + span,
+.joinRadioMedium.isActive span {
+  background-image: url("../images/namsanwon/icon_radio_M_active.svg");
+}
+
+.joinRadioMedium input:disabled + span,
+.joinRadioMedium.isDisabled span {
+  background-image: url("../images/namsanwon/icon_radio_M_disabled.svg");
+}
+
+.joinRadioMedium input:checked:disabled + span,
+.joinRadioMedium.isActive.isDisabled span {
+  background-image: url("../images/namsanwon/icon_radio_M_active_disabled.svg");
+}
+
+.joinRadio input:focus-visible + span {
+  outline: 2px solid rgba(69, 104, 5, 0.3);
+  outline-offset: 2px;
+}
+
+.joinCaptchaField {
+  padding-top: 17px;
+  border-top: 1px solid #d7c2b9;
+}
+
+.joinCaptcha {
+  display: inline-flex;
+  width: 300px;
+  max-width: 100%;
+  height: 80px;
+  align-items: center;
+  padding: 0 22px;
+  border: 1px solid #d7c2b9;
+  border-radius: 12px;
+  background:
+    linear-gradient(135deg, rgba(0, 0, 0, 0.06) 25%, transparent 25%) 0 0 / 18px 18px,
+    linear-gradient(45deg, transparent 40%, rgba(69, 104, 5, 0.18) 40%, rgba(69, 104, 5, 0.18) 44%, transparent 44%) 0 0 / 42px 42px,
+    #f0f0ec;
+  color: #3d3d3d;
+  font-size: 44px;
+  font-weight: 800;
+  font-style: italic;
+  line-height: 1;
+  letter-spacing: -2px;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.joinCompleteIcon {
+  width: 60px;
+  height: 60px;
+  background: rgba(69, 104, 5, 0.12);
+}
+
+.joinCompleteCard h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.joinCompleteCard p {
+  max-width: none;
+  margin: -14px 0 14px;
+  color: var(--text-sub);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.joinConfirmButton {
+  display: inline-flex;
+  min-width: 100px;
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 26px;
+  border-radius: 9999px;
+  background: var(--secondary);
+  color: var(--surface);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+}
+
+.loginPage {
+  padding-bottom: 72px;
+}
+
+.loginPanel {
+  width: min(800px, 100%);
+  margin: 32px auto 0;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  min-height: 370px;
+  padding: 49px;
+  border: 1px solid var(--line-muted);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 4px 9px rgba(136, 176, 75, 0.12);
+}
+
+.loginFormTop {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  width: 413px;
+  margin: 24px auto 0;
+}
+
+.loginFields {
+  display: flex;
+  width: 297px;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.loginField {
+  display: grid;
+  grid-template-columns: 70px 215px;
+  gap: 12px;
+  align-items: center;
+}
+
+.loginField label {
+  justify-self: end;
+  white-space: nowrap;
+}
+
+.loginField input {
+  min-width: 0;
+}
+
+.loginSubmit {
+  display: inline-flex;
+  width: 100px;
+  height: 104px;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  padding: 16px;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: var(--secondary);
+  color: var(--surface);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  cursor: pointer;
+}
+
+.loginFindLinks {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  width: 413px;
+  margin: 24px auto 0;
+}
+
+.loginFindLinks a {
+  color: var(--text-point);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.loginFindLinks a + a {
+  position: relative;
+}
+
+.loginFindLinks a + a::before {
+  position: absolute;
+  top: 50%;
+  left: -8px;
+  width: 1px;
+  height: 16px;
+  background: var(--line-muted);
+  content: "";
+  transform: translateY(-50%);
+}
+
+.loginJoinGuide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 47px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-muted);
+}
+
+.loginJoinGuide span {
+  width: 24px;
+  height: 24px;
+  background: url("../images/namsanwon/icon-user.svg") center / 24px 24px no-repeat;
+  opacity: 0.72;
+}
+
+.loginJoinGuide p {
+  max-width: none;
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.loginJoinGuide a {
+  color: var(--text-point);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.findAccountPage {
+  padding-bottom: 68px;
+}
+
+.findAccountPanel {
+  width: min(1104px, 100%);
+  margin: 32px auto 0;
+}
+
+.findAccountCards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px;
+}
+
+.findAccountCard {
+  display: flex;
+  min-height: 510px;
+  flex-direction: column;
+  padding: 48px;
+  border: 1px solid var(--line-muted);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgba(136, 176, 75, 0.12);
+}
+
+.findAccountHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.findAccountHeader h3 {
+  margin: 0 0 5px;
+  color: var(--secondary);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 36.4px;
+  letter-spacing: var(--tracking-default);
+}
+
+.findAccountHeader p {
+  max-width: none;
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: var(--tracking-default);
+}
+
+.findAccountHeader img {
+  width: 49px;
+  height: 49px;
+  flex: 0 0 auto;
+}
+
+.findAccountForm {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(215, 194, 185, 0.5);
+}
+
+.findAccountFields {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.findAccountField {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+
+.findAccountField label {
+  justify-self: end;
+  white-space: nowrap;
+}
+
+.findAccountField input {
+  min-width: 0;
+}
+
+.findAccountButton {
+  display: inline-flex;
+  width: 100%;
+  min-height: 58px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  padding: 16px 24px;
+  border: 0;
+  border-radius: 9999px;
+  background: var(--secondary);
+  color: var(--surface);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 26px;
+  cursor: pointer;
+}
+
+.findAccountButton:focus-visible {
+  outline: 3px solid rgba(69, 104, 5, 0.25);
+  outline-offset: 3px;
+}
+
+.findAccountVerifyPanel {
+  width: min(528px, 100%);
+  margin: 32px auto 0;
+}
+
+.findAccountVerifyCard {
+  min-height: 412px;
+}
+
+.findAccountVerifyForm {
+  gap: 16px;
+}
+
+.findAccountVerifyForm .findAccountButton {
+  margin-top: 0;
+}
+
+.findAccountCodeGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.findAccountCodeGroup input {
+  width: 50px;
+  height: 70px;
+  padding: 3px 0 0;
+  border: 1px solid var(--line-muted);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-sub);
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.findAccountCodeGroup input:nth-child(4) {
+  margin-left: 28px;
+}
+
+.findAccountCodeGroup input:focus-visible {
+  border-color: var(--secondary);
+  outline: 3px solid rgba(69, 104, 5, 0.12);
+}
+
+.findAccountResetPanel {
+  width: min(536px, 100%);
+  margin: 32px auto 0;
+}
+
+.findAccountResetCard {
+  min-height: 500px;
+}
+
+.findAccountResetForm {
+  gap: 24px;
+}
+
+.findAccountResetForm .findAccountButton {
+  margin-top: 16px;
+}
+
+.findAccountResetFields {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.findAccountResetField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.findAccountResetField p {
+  max-width: none;
+  margin: 0;
+  color: var(--text-sub);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: var(--tracking-default);
+}
+
 .noticeBoardToolbar {
   display: flex;
   align-items: center;
@@ -2632,6 +3562,310 @@ body.isSecretPostModalOpen {
   .subPage {
     padding-top: 32px;
     padding-bottom: 64px;
+  }
+
+  .joinFlow {
+    gap: 28px;
+    margin-top: 24px;
+  }
+
+  .joinSteps {
+    gap: 8px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .joinSteps::-webkit-scrollbar {
+    display: none;
+  }
+
+  .joinSteps li {
+    gap: 6px;
+    min-height: 28px;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .joinSteps li + li::before {
+    width: 24px;
+    margin-right: 0;
+  }
+
+  .joinSteps span {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .joinSteps strong {
+    min-height: 28px;
+    padding-top: 3px;
+  }
+
+  .joinTermsCard,
+  .joinFormCard,
+  .joinCompleteCard {
+    gap: 20px;
+    padding: 27px 20px;
+    border-radius: 12px;
+  }
+
+  .joinTermsHeader h3 {
+    font-size: 22px;
+    line-height: 31px;
+  }
+
+  .joinTermsGroup h4 {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .joinTermsBox {
+    height: 156px;
+    font-size: 13px;
+    line-height: 19px;
+  }
+
+  .joinCheck {
+    align-self: flex-start;
+  }
+
+  .joinCheckSmall,
+  .joinCheckAll {
+    height: auto;
+    align-items: flex-start;
+    white-space: normal;
+  }
+
+  .joinCheck b {
+    align-items: flex-start;
+    line-height: 1.35;
+    padding-top: 1px;
+  }
+
+  .joinNextButton {
+    min-height: 54px;
+    padding: 15px 24px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .joinFieldGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .joinInputRow {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .joinInputRow button {
+    width: 100%;
+  }
+
+  .joinRadioLine {
+    align-items: center;
+    flex-direction: row;
+    gap: 8px 24px;
+  }
+
+  .joinRadioLine label {
+    width: auto;
+    flex: 0 0 auto;
+  }
+
+  .joinRadioLine > span {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .joinRadio b {
+    align-items: center;
+    line-height: 1;
+    padding-top: 2px;
+  }
+
+  .joinCaptcha {
+    width: 100%;
+    height: 72px;
+    font-size: 38px;
+  }
+
+  .joinCompleteCard {
+    min-height: 300px;
+  }
+
+  .joinCompleteCard h3 {
+    font-size: 22px;
+    line-height: 31px;
+  }
+
+  .joinCompleteCard p {
+    margin-top: -8px;
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .loginPanel {
+    margin-top: 24px;
+  }
+
+  .loginForm {
+    gap: 20px;
+    min-height: 0;
+    padding: 27px 20px;
+  }
+
+  .loginFormTop {
+    width: 100%;
+    margin-top: 0;
+    flex-direction: column;
+  }
+
+  .loginFields {
+    width: 100%;
+    gap: 16px;
+  }
+
+  .loginField {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .loginField label {
+    justify-self: start;
+  }
+
+  .loginSubmit {
+    width: 100%;
+    height: 54px;
+    border-radius: 9999px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .loginFindLinks {
+    width: 100%;
+    margin-top: 0;
+    justify-content: center;
+  }
+
+  .loginJoinGuide {
+    flex-wrap: wrap;
+    margin-top: 0;
+    padding-top: 20px;
+  }
+
+  .findAccountPage {
+    padding-bottom: 48px;
+  }
+
+  .findAccountPanel {
+    margin-top: 24px;
+  }
+
+  .findAccountCards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .findAccountCard {
+    min-height: 0;
+    padding: 28px 20px;
+    border-radius: 16px;
+  }
+
+  .findAccountHeader {
+    gap: 16px;
+  }
+
+  .findAccountHeader h3 {
+    font-size: 22px;
+    line-height: 31px;
+  }
+
+  .findAccountHeader p {
+    font-size: 15px;
+    line-height: 22px;
+  }
+
+  .findAccountHeader img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .findAccountForm {
+    margin-top: 24px;
+    padding-top: 20px;
+  }
+
+  .findAccountFields {
+    gap: 16px;
+  }
+
+  .findAccountField {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .findAccountField label {
+    justify-self: start;
+  }
+
+  .findAccountButton {
+    min-height: 54px;
+    margin-top: 28px;
+    padding: 15px 24px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .findAccountVerifyPanel {
+    margin-top: 24px;
+  }
+
+  .findAccountVerifyCard {
+    min-height: 0;
+  }
+
+  .findAccountVerifyForm {
+    gap: 16px;
+  }
+
+  .findAccountCodeGroup {
+    gap: 8px;
+  }
+
+  .findAccountCodeGroup input {
+    width: 40px;
+    height: 58px;
+    font-size: 28px;
+  }
+
+  .findAccountCodeGroup input:nth-child(4) {
+    margin-left: 12px;
+  }
+
+  .findAccountResetPanel {
+    margin-top: 24px;
+  }
+
+  .findAccountResetCard {
+    min-height: 0;
+  }
+
+  .findAccountResetForm {
+    gap: 20px;
+  }
+
+  .findAccountResetForm .findAccountButton {
+    margin-top: 8px;
+  }
+
+  .findAccountResetFields {
+    gap: 18px;
   }
 
   .subVisualInner {

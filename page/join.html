@@ -4,10 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>회원가입 | 남산원</title>
+  <link rel="icon" href="../favicon.ico" sizes="any">
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/fonts.css">
   <link rel="stylesheet" href="../css/root.css">
-  <link rel="stylesheet" href="../css/namsanwon.css?v=20260706-1">
+  <link rel="stylesheet" href="../css/namsanwon.css?v=20260715-1">
 </head>
 <body data-current-section="member" data-current-page="join.html">
   <a class="skipLink" href="#main">본문 바로가기</a>
@@ -130,31 +131,79 @@
 
   <section class="subVisual" aria-labelledby="subVisualTitle">
     <div class="subVisualInner">
-      <h1 id="subVisualTitle">회원</h1>
-      <p>남산원 홈페이지 회원 서비스를 이용하실 수 있습니다.</p>
+      <h1 id="subVisualTitle">멤버쉽</h1>
+      <p>남산원의 가족이 되어주세요.</p>
     </div>
   </section>
 
 
-  <nav class="localNav" aria-label="회원 하위 메뉴">
+  <nav class="localNav" aria-label="멤버쉽 하위 메뉴">
     <div class="localNavInner">
-      <a href="./login.html">로그인</a>
       <a class="isActive" aria-current="page" href="./join.html">회원가입</a>
+      <a href="./login.html">로그인</a>
+      <a href="./find-account.html">아이디/비밀번호 찾기</a>
     </div>
   </nav>
 
-  <main class="subPage" id="main">
+  <main class="subPage joinPage" id="main">
     <div class="noticeBoardTop">
       <h2>회원가입</h2>
       <nav class="breadcrumb" aria-label="현재 위치">
         <a class="breadcrumbHome" href="./namsanwon.html"><span class="blind">홈</span></a>
-        <span>회원</span>
+        <span>멤버쉽</span>
         <strong>회원가입</strong>
       </nav>
     </div>
 
-    <p>회원가입 페이지입니다. 세부 콘텐츠는 운영 자료에 맞춰 확장할 수 있습니다.</p>
-    <a class="subPageLink" href="./namsanwon.html">메인으로 돌아가기</a>
+    <section class="joinFlow" aria-label="회원가입 단계">
+      <ol class="joinSteps">
+        <li class="isActive" aria-current="step"><span>1</span><strong>약관 동의</strong></li>
+        <li><span>2</span><strong>정보 입력</strong></li>
+        <li><span>3</span><strong>가입 완료</strong></li>
+      </ol>
+
+      <form class="joinTermsCard" action="./join-info.html" data-join-terms-form>
+        <div class="joinTermsHeader">
+          <h3>회원가입 약관동의</h3>
+        </div>
+
+        <div class="joinTermsGroup">
+          <h4>회원가입 약관 <em>*</em></h4>
+          <div class="joinTermsBox" tabindex="0">
+            <p>제1조 (목적) 본 약관은 사회복지법인 남산원(이하 "원"이라 한다)이 제공하는 인터넷 서비스의 이용조건 및 절차에 관한 사항을 규정함을 목적으로 합니다.</p>
+            <p>제2조 (약관의 효력과 변경) 1. 원은 이용자가 본 약관 내용에 동의하는 것을 조건으로 서비스를 제공할 것이며, 이용자가 본 약관의 내용에 동의하는 경우 원의 서비스 제공 행위 및 이용자의 서비스 이용 행위에는 본 약관이 우선적으로 적용됩니다.</p>
+            <p>제3조 (이용자의 의무) 이용자는 서비스 이용 시 다음 각 호의 행위를 하지 않기로 동의합니다. 타인의 아이디와 비밀번호를 도용하는 행위, 저속, 음란, 모욕적, 위협적이거나 타인의 사생활을 침해할 수 있는 내용을 전송, 게시, 게재, 전자 메일 또는 기타의 방법으로 전송하는 행위 등...</p>
+          </div>
+          <label class="joinCheck joinCheckSmall">
+            <input type="checkbox" name="terms" data-join-required>
+            <span aria-hidden="true"></span>
+            <b>회원가입약관에 동의합니다.</b>
+          </label>
+        </div>
+
+        <div class="joinTermsGroup">
+          <h4>개인정보취급방침 <em>*</em></h4>
+          <div class="joinTermsBox" tabindex="0">
+            <p>사회복지법인 남산원은 귀하의 개인정보 보호를 매우 중요시하며, 『개인정보보호법』을 준수하고 있습니다. 원은 개인정보취급방침을 통하여 귀하께서 제공하시는 개인정보가 어떠한 용도와 방식으로 이용되고 있으며 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.</p>
+            <p>1. 수집하는 개인정보 항목: 성명, 생년월일, 성별, 로그인ID, 비밀번호, 자택 전화번호, 자택 주소, 휴대전화번호, 이메일 등</p>
+            <p>2. 개인정보의 수집 및 이용목적: 회원제 서비스 이용에 따른 본인확인, 개인 식별, 불량회원의 부정 이용 방지와 비인가 사용 방지, 가입 의사 확인, 연령확인, 불만처리 등 민원처리, 고지사항 전달 등</p>
+          </div>
+          <label class="joinCheck joinCheckSmall">
+            <input type="checkbox" name="privacy" data-join-required>
+            <span aria-hidden="true"></span>
+            <b>개인정보취급방침에 동의합니다.</b>
+          </label>
+        </div>
+
+        <label class="joinCheck joinCheckAll">
+          <input type="checkbox" name="allAgree" data-join-all>
+          <span aria-hidden="true"></span>
+          <b>전체 약관에 동의합니다.</b>
+        </label>
+
+        <button class="joinNextButton" type="submit"><span class="buttonText">동의하고 다음 단계로</span></button>
+      </form>
+    </section>
   </main>
 
   <footer class="footer" id="footer">
@@ -171,6 +220,6 @@
     </div>
   </footer>
 
-  <script src="../js/namsanwon.js?v=20260706-1"></script>
+  <script src="../js/namsanwon.js?v=20260715-1"></script>
 </body>
 </html>

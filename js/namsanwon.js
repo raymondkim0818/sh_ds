@@ -675,6 +675,38 @@
     });
   }
 
+  var joinTermsForm = document.querySelector('[data-join-terms-form]');
+  if (joinTermsForm) {
+    var joinAllCheck = joinTermsForm.querySelector('[data-join-all]');
+    var joinRequiredChecks = Array.prototype.slice.call(joinTermsForm.querySelectorAll('[data-join-required]'));
+
+    function syncJoinAllCheck() {
+      if (!joinAllCheck || !joinRequiredChecks.length) return;
+      joinAllCheck.checked = joinRequiredChecks.every(function (checkbox) {
+        return checkbox.checked;
+      });
+    }
+
+    if (joinAllCheck) {
+      joinAllCheck.addEventListener('change', function () {
+        joinRequiredChecks.forEach(function (checkbox) {
+          checkbox.checked = joinAllCheck.checked;
+        });
+      });
+    }
+
+    joinRequiredChecks.forEach(function (checkbox) {
+      checkbox.addEventListener('change', syncJoinAllCheck);
+    });
+
+    joinTermsForm.addEventListener('submit', function (event) {
+      if (!joinRequiredChecks.every(function (checkbox) { return checkbox.checked; })) {
+        event.preventDefault();
+        joinRequiredChecks[0].focus();
+      }
+    });
+  }
+
   var heroSlider = document.querySelector('[data-hero-slider]');
   var heroSlides = heroSlider ? Array.prototype.slice.call(heroSlider.querySelectorAll('[data-hero-slide]')) : [];
   var heroBackgrounds = heroSlider ? Array.prototype.slice.call(heroSlider.querySelectorAll('[data-hero-bg]')) : [];
